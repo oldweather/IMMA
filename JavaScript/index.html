@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>IMMA.js</title>
+</head>
+<body bgcolor="white">
+<center><h2>IMMA.js</h2></center>
+
+<a href="IMMA.js">IMMA.js</a> is a core JavaScript class allowing IMMA records to be used by JavaScript programs. It provides methods for packing, unpacking and manipulating IMMA records.
+<p>
+IMMA records are objects with the usual JavaScript properties. Data values (parameters) are accessible through the object. I.e. if the object is <tt>record</tt>  (<tt>record = new IMMA(string_representation);</tt>) the observation year is stored as <tt>record.YR</tt>, the sea-surface temperature is <tt>record.SST</tt>, and the wet-bulb temperature indicator is <tt>record.WBTI</tt>. The parameters available are those listed in <a href="http://icoads.noaa.gov/e-doc/imma/imma_short.pdf">the IMMA documentation</a>, but note that they are not all guaranteed to be available: if the record has no SST given, <tt>record.SST</tt> will be null. (One extra parameter is available: <tt>record.string</tt> is the string representation of the record).
+
+<h3>Methods</h3>
+<ol>
+<li>new: Create a new IMMA object<br>
+ Usage: <tt>record = new IMMA(string_representation);</tt><br>
+ Creats a new record - unpacks the string and creates all the parameters in the object (calls <tt>unpackString()</tt>.
+</li><br><br>
+<li><tt>unpackString()</tt>: unpacks all the parameters from the string representation. (I.e. <tt>record.unpackString()</tt> gets <tt>record.YR</tt>, <tt>record.SST</tt> etc. from <tt>record.string</tt>).
+</li><br><br>
+<li><tt>packString()</tt>: creates the string representation from the parameters. (I.e. <tt>record.packString()</tt> creates <tt>record.string</tt> from <tt>record.YR</tt>, <tt>record.SST</tt> etc.).
+</li><br><br>
+<li><tt>checkParameter(parameter_name)</tt>: checks that the named parameter has a value in the ranges specified by the IMMA definition. (I.e. <tt>record.checkParamater("YR")</tt> checks that <tt>record.YR</tt> is between 1600 and 2024).
+</li><br><br>
+
+</ol>
+
+<h3>Examples</h3>
+The class enables IMMA records to be displayed and manipulated by web scripts. If an IMMA file is retrieved with <tt>xmlHttpRequest()</tt> the contents can be decode and displayed on the web using client JavaScript. See <a href="../online_editor">the IMMA online editor</a> for an example application.
+<p>
+
+<h3>Extensions</h3>
+
+IMMA is designed to be extensible. Each IMMA record contains a core component and a number of optional extensions (described in <a href="http://icoads.noaa.gov/e-doc/imma">the documentation</a>). The details of data for the core and each extension is defined in the </tt>IMMA.attachments</tt>, <tt>IMMA.parameters</tt> and <t>IMMA.definitions</tt> arrays - these are defined as class variables in <a href="IMMA.js">the source file</a>.
+<p>
+Users will only need to be aware of attachments when explicitly adding or deleting an attachment from an IMMA record. To do this, manipulate the <tt>attachments</tt> parameter of the IMMA record: this is a list of the attachments possessed by the record. So, for example <tt>record.attachments.push(3)</tt> will add a model quality control attachment (with all data undefined) to <tt>record</tt>, 3 is the attachment ID of model quality control attachments.
+
+
+<hr>
+Last modified: 2008-01-08<br>
+Maintained by: <a href="http://brohan.org/philip">Philip Brohan</a>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-3015554-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+</body>
+</html>
