@@ -46,9 +46,11 @@ class IMMA:
                 Length     = line[2:4]
                 if( re.search("\S",Length)==None): 
                     Length = None
-                if ( Length != None and Length != 0 ):
-                    Length = int(Length)-4
-                    line = line[4:len(line)]
+                if ( Length != None ):
+                    Length = int(Length)
+                    if ( Length != 0 ):
+                        Length = int(Length)-4
+                        line = line[4:len(line)]
                 if(getAttachment(Attachment)==None ):
                     raise("Bad IMMA string","Unsupported attachment ID "+Attachment)
 
