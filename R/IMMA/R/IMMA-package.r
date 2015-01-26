@@ -9,11 +9,11 @@ IMMA.parameters  <- list();
 IMMA.definitions <- list();
 
 # Core section
-IMMA.attachments[[1]] <- 'core';
+IMMA.attachments[[100]] <- 'core';
 
 # List of parameters in core section
 # In the order they are in on disc
-IMMA.parameters[[1]] <- c('YR','MO','DY','HR','LAT','LON','IM','ATTC',
+IMMA.parameters[[100]] <- c('YR','MO','DY','HR','LAT','LON','IM','ATTC',
                           'TI','LI','DS','VS','NID','II','ID','C1',
 			  'DI','D','WI','W','VI','VV','WW','W1',
                           'SLP','A','PPP','IT','AT','WBTI','WBT',
@@ -29,7 +29,7 @@ IMMA.parameters[[1]] <- c('YR','MO','DY','HR','LAT','LON','IM','ATTC',
 #    Its maximum value (alternative representation)
 #    Its units scale
 #    Its encoding (1 = integer, 3= character, 2= base36)
-IMMA.definitions[[1]] <- list(
+IMMA.definitions[[100]] <- list(
     'YR'   = list( 4, 1600.,  2024.,  NULL,    NULL,   1.,    1 ),
     'MO'   = list( 2, 1.,     12.,    NULL,    NULL,   1.,    1 ),
     'DY'   = list( 2, 1.,     31.,    NULL,    NULL,   1.,    1 ),
@@ -80,19 +80,157 @@ IMMA.definitions[[1]] <- list(
     'SH'   = list( 2, 0.,     99.,    NULL,    NULL,   1.,    1 )
 )
 
-// Find out which attachment a parameter is in
-IMMA.whichAttachment = function(parameter) {
-    for(i in [0,1,2,3,4,5,99]) {
-        if(IMMA.definitions[i][parameter]!=null) { return i; }
+# Find out which attachment a parameter is in
+IMMA.whichAttachment <- function(parameter) {
+    for(i in c(100)) {# ,1,2,3,4,5,99)) {
+        if(!is.null(IMMA.definitions[[i]][[parameter]])) { return(i) }
     }
-    throw new Error("No parameter "+parameter+" in IMMA");
+    stop(sprintf("No parameter %s in IMMA",parameter))
 }
 
-// Get the definitions for a named parameter
-IMMA.definitionsFor = function(parameter) {
-    var attachment = IMMA.whichAttachment(parameter);
-    return IMMA.definitions[attachment];
+# Get the definitions for a named parameter
+IMMA.definitionsFor <- function(parameter) {
+    return(IMMA.definitions[[IMMA.whichAttachment(parameter)]][[parameter]])
 }
+
+# Convert between numeric and base 36
+IMMA.decode_base36 <- function(s) { return(strtoi(s,36)) }
+# p specifies a minimum number of characters
+IMMA.encode_base36 <- function(n,p=0) {
+    n<-as.integer(n)
+    s<-rep("",length(n))
+    w<-which(n==0)
+    if(length(w)>0) s[w]<-'0'
+    w<-which(n>0)
+    while (length(w)>0) {
+       s[w] <- paste(substr(rep("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",length(n[w])),
+                          n[w]%%36+1,n[w]%%36+1),
+                   s[w],sep='')
+       n <-as.integer(n/36)
+       w<-which(n>0)
+    }
+    w<-which(nchar(s)<p)
+    # Pad strings of less than minimum length with zeros
+    while(length(w)>0) {
+      s[w]<-paste('0',s[w],sep='')
+      w<-which(nchar(s)<p)
+    }
+    return(s)
+}
+
+# Check the value for a parameter is inside its acceptable range(s)
+IMMA.checkParameter <- function(ob,parameter) {
+
+  if(is.null(parameter)) stop ("Missing parameter")
+  definitions=IMMA.definitionsFor(parameter)
+  if ( is.null(definitions) ) {
+     stop("No parameter %s in IMMA.",parameter);
+  }
+
+  result<-rep(TRUE,length(ob[[parameter]]))
+              
+   # Character data can be anything
+    if ( definitions[6] == 3 ) {
+        return(result); 
+    }
+  
+    w<-which(((is.null(definitions[1]) | definitions[1] <= ob[[parameter]])
+        &     (is.null(definitions[2]) | definitions[2] >= ob[[parameter]] )) |
+             ((is.null(definitions[3]) | definitions[3] <= ob[[parameter]])
+        &     (is.null(definitions[4]) | definitions[4] >= this[[parameter]] )))
+    if(length(w<length(ob[[parameter]]) result[!w]<-FALSE
+  return(result)
+}
+
+# Make a string representation of an attachment
+IMMA.encodeAttachment <- function(ob,attachment){
+
+    Result = rep('',length(ob$YR))
+    for ( parameter in IMMA.parameters[[attachment]]) {
+        if ( this[parameters[i]]!=null 
+            && this.checkParameter( parameters[i], definitions ) )
+        {
+            var Tmp = this[parameters[i]];
+
+            // Scale to integer units for output
+            if ( definitions[parameters[i]][5] != null ) {
+                Tmp /= definitions[parameters[i]][5];
+                Tmp = parseInt(Tmp);
+            }
+
+            // Encode as base36 if required
+            if ( definitions[parameters[i]][5] == 2 ) {
+                Tmp = IMMA.encode_base36(Tmp);
+            }
+
+            // Convert to a string of the correct length
+            if ( definitions[parameters[i]][6] == 1 ) {
+
+                // Integer
+                if ( definitions[parameters[i]][0] != null ) {
+                    Tmp=Tmp.toString();
+                    while(Tmp.length<definitions[parameters[i]][0]) {
+                        Tmp=" "+Tmp;
+                    }
+                }
+                else {
+
+                    // Undefined length - should never happen
+                    Tmp=Tmp.toString();
+                }
+            }
+            else {
+
+                // String
+                if ( definitions[parameters[i]][0] != null ) {
+                    Tmp=Tmp.toString();
+                    while(Tmp.length<definitions[parameters[i]][0]) {
+                        Tmp=Tmp+" ";
+                    }
+                }
+                else {
+                
+                   // Undefined length - only for supplementary data
+                   Tmp=Tmp.toString(); 
+                }
+            }
+            Result += Tmp;
+
+        }
+        else {
+            // Undefined data - make a blank string of the corect length
+            if ( definitions[parameters[i]][0] != null ) {
+                for(var j=0;j<definitions[parameters[i]][0];j++) {
+                    Result += " ";
+                }
+            }
+            else {
+
+                // Undefined data with unknown length - treat as blank string
+                Result += " ";
+            }
+        }
+    }
+    
+    // Done all the parameters, add the ID and length to the start
+    // (except for core)
+    if ( attachment != 0 ) {
+        if ( attachment == 99 ) {
+            Result = " 0"+Result;
+        }
+        else {
+            var Tmp = (Result.length+4).toString();
+            if(Tmp.length<2) { Tmp = " "+Tmp; }
+            Result = Tmp+Result;
+        }
+        Tmp = attachment.toString();
+        if(Tmp.length<2) { Tmp= " "+Tmp; }
+        Result = Tmp+Result;
+    }
+
+    return Result;
+}
+
 
 
 
