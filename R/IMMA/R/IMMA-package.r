@@ -4,12 +4,12 @@
 #' @docType package
 
 # Definitions of the attachments
-IMMA.attachments <- list();
-IMMA.parameters  <- list();
-IMMA.definitions <- list();
+IMMA.attachments <- list()
+IMMA.parameters  <- list()
+IMMA.definitions <- list()
 
 # Core section
-IMMA.attachments[[100]] <- 'core';
+IMMA.attachments[[100]] <- 'core'
 
 # List of parameters in core section
 # In the order they are in on disc
@@ -19,10 +19,10 @@ IMMA.parameters[[100]] <- c('YR','MO','DY','HR','LAT','LON','IM','ATTC',
                           'SLP','A','PPP','IT','AT','WBTI','WBT',
 		          'DPTI','DPT','SI','SST','N','NH','CL',
 		          'HI','H','CM','CH','WD','WP','WH','SD',
-		          'SP','SH');
+		          'SP','SH')
 
 # For each parameter, provide an array specifying:
-#    Its length in bytes, on disc,
+#    Its length in characters, on disc,
 #    Its minimum value
 #    Its maximum value
 #    Its minimum value (alternative representation)
@@ -79,10 +79,216 @@ IMMA.definitions[[100]] <- list(
     'SP'   = list( 2, 0.,     30.,    99.,     99.,    1.,    1 ),
     'SH'   = list( 2, 0.,     99.,    NULL,    NULL,   1.,    1 )
 )
+#ICOADS attachment
+IMMA.attachments[[1]] = 'icoads';
+IMMA.parameters[[1]]  = c('BSI','B10','B1','DCK','SID','PT',
+                          'DUPS','DUPC','TC','PB','WX','SX',
+			  'C2','SQZ','SQA','AQZ','AQA','UQZ',
+			  'UQA','VQZ','VQA','PQZ','PQA','DQZ',
+			  'DQA','ND','SF','AF','UF','VF','PF',
+			  'RF','ZNC','WNC','BNC','XNC','YNC',
+			  'PNC','ANC','GNC','DNC','SNC','CNC',
+			  'ENC','FNC','TNC','QCE','LZ','QCZ')
+IMMA.definitions[[1]] = list(
+    'BSI'  = list( 1, NULL,  NULL,  NULL, NULL, 1., 1 ),
+    'B10'  = list( 3, 1.,    648.,  NULL, NULL, 1., 1 ),
+    'B1'   = list( 2, 0.,    99.,   NULL, NULL, 1., 1 ),
+    'DCK'  = list( 3, 0.,    999.,  NULL, NULL, 1., 1 ),
+    'SID'  = list( 3, 0.,    999.,  NULL, NULL, 1., 1 ),
+    'PT'   = list( 2, 0.,    15.,   NULL, NULL, 1., 1 ),
+    'DUPS' = list( 2, 0.,    14.,   NULL, NULL, 1., 1 ),
+    'DUPC' = list( 1, 0.,    2.,    NULL, NULL, 1., 1 ),
+    'TC'   = list( 1, 0.,    1.,    NULL, NULL, 1., 1 ),
+    'PB'   = list( 1, 0.,    2.,    NULL, NULL, 1., 1 ),
+    'WX'   = list( 1, 1.,    1.,    NULL, NULL, 1., 1 ),
+    'SX'   = list( 1, 1.,    1.,    NULL, NULL, 1., 1 ),
+    'C2'   = list( 2, 0.,    40.,   NULL, NULL, 1., 1 ),
+    'SQZ'  = list( 1, 1.,    35.,   NULL, NULL, 1., 2 ),
+    'SQA'  = list( 1, 1.,    21.,   NULL, NULL, 1., 2 ),
+    'AQZ'  = list( 1, 1.,    35.,   NULL, NULL, 1., 2 ),
+    'AQA'  = list( 1, 1.,    21.,   NULL, NULL, 1., 2 ),
+    'UQZ'  = list( 1, 1.,    35.,   NULL, NULL, 1., 2 ),
+    'UQA'  = list( 1, 1.,    21.,   NULL, NULL, 1., 2 ),
+    'VQZ'  = list( 1, 1.,    35.,   NULL, NULL, 1., 2 ),
+    'VQA'  = list( 1, 1.,    21.,   NULL, NULL, 1., 2 ),
+    'PQZ'  = list( 1, 1.,    35.,   NULL, NULL, 1., 2 ),
+    'PQA'  = list( 1, 1.,    21.,   NULL, NULL, 1., 2 ),
+    'DQZ'  = list( 1, 1.,    35.,   NULL, NULL, 1., 2 ),
+    'DQA'  = list( 1, 1.,    21.,   NULL, NULL, 1., 2 ),
+    'ND'   = list( 1, 1.,    2.,    NULL, NULL, 1., 1 ),
+    'SF'   = list( 1, 1.,    15.,   NULL, NULL, 1., 2 ),
+    'AF'   = list( 1, 1.,    15.,   NULL, NULL, 1., 2 ),
+    'UF'   = list( 1, 1.,    15.,   NULL, NULL, 1., 2 ),
+    'VF'   = list( 1, 1.,    15.,   NULL, NULL, 1., 2 ),
+    'PF'   = list( 1, 1.,    15.,   NULL, NULL, 1., 2 ),
+    'RF'   = list( 1, 1.,    15.,   NULL, NULL, 1., 2 ),
+    'ZNC'  = list( 1, 1.,    10.,   NULL, NULL, 1., 2 ),
+    'WNC'  = list( 1, 1.,    10.,   NULL, NULL, 1., 2 ),
+    'BNC'  = list( 1, 1.,    10.,   NULL, NULL, 1., 2 ),
+    'XNC'  = list( 1, 1.,    10.,   NULL, NULL, 1., 2 ),
+    'YNC'  = list( 1, 1.,    10.,   NULL, NULL, 1., 2 ),
+    'PNC'  = list( 1, 1.,    10.,   NULL, NULL, 1., 2 ),
+    'ANC'  = list( 1, 1.,    10.,   NULL, NULL, 1., 2 ),
+    'GNC'  = list( 1, 1.,    10.,   NULL, NULL, 1., 2 ),
+    'DNC'  = list( 1, 1.,    10.,   NULL, NULL, 1., 2 ),
+    'SNC'  = list( 1, 1.,    10.,   NULL, NULL, 1., 2 ),
+    'CNC'  = list( 1, 1.,    10.,   NULL, NULL, 1., 2 ),
+    'ENC'  = list( 1, 1.,    10.,   NULL, NULL, 1., 2 ),
+    'FNC'  = list( 1, 1.,    10.,   NULL, NULL, 1., 2 ),
+    'TNC'  = list( 1, 1.,    10.,   NULL, NULL, 1., 2 ),
+    'QCE'  = list( 2, 0.,    63.,   NULL, NULL, 1., 1 ),
+    'LZ'   = list( 1, 1.,    1.,    NULL, NULL, 1., 1 ),
+    'QCZ'  = list( 2, 0.,    31.,   NULL, NULL, 1., 1 )
+)
+# IMMT2 attachment
+IMMA.attachments[[2]] = 'immt2'
+IMMA.parameters[[2]]  = c('OS','OP','FM','IX','W2','SGN',
+                          'SGT','SGH','WMI','SD2','SP2',
+			  'SH2','IS','ES','RS','IC1','IC2',
+			  'IC3','IC4','IC5','IR','RRR','TR',
+			  'QCI','QI1','QI2','QI3','QI4',
+			  'QI5','QI6','QI7','QI8','QI9',
+			  'QI10','QI11','QI12','QI13','QI14',
+			  'QI15','QI16','QI17','QI18','QI19',
+			  'QI20','QI21','HDG','COG','SOG',
+			  'SLL','SLHH','RWD','RWS')
+IMMA.definitions[[2]] = list(
+    'OS'   = list( 1, 0.,   6.,   NULL,  NULL,  1.,  1 ),
+    'OP'   = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'FM'   = list( 2, 0.,   8.,   NULL,  NULL,  1.,  1 ),
+    'IX'   = list( 1, 1.,   7.,   NULL,  NULL,  1.,  1 ),
+    'W2'   = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'SGN'  = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'SGT'  = list( 1, 0.,   10.,  NULL,  NULL,  1.,  2 ),
+    'SGH'  = list( 2, 0.,   50.,  56.,   99.,   1.,  1 ),
+    'WMI'  = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'SD2'  = list( 2, 0.,   38.,  NULL,  NULL,  1.,  1 ),
+    'SP2'  = list( 2, 0.,   30.,  99.,   99.,   1.,  1 ),
+    'SH2'  = list( 2, 0.,   99.,  NULL,  NULL,  1.,  1 ),
+    'IS'   = list( 1, 1.,   5.,   NULL,  NULL,  1.,  1 ),
+    'ES'   = list( 2, 0.,   99.,  NULL,  NULL,  1.,  1 ),
+    'RS'   = list( 1, 0.,   4.,   NULL,  NULL,  1.,  1 ),
+    'IC1'  = list( 1, 0.,   10.,  NULL,  NULL,  1.,  2 ),
+    'IC2'  = list( 1, 0.,   10.,  NULL,  NULL,  1.,  2 ),
+    'IC3'  = list( 1, 0.,   10.,  NULL,  NULL,  1.,  2 ),
+    'IC4'  = list( 1, 0.,   10.,  NULL,  NULL,  1.,  2 ),
+    'IC5'  = list( 1, 0.,   10.,  NULL,  NULL,  1.,  2 ),
+    'IR'   = list( 1, 0.,   4.,   NULL,  NULL,  1.,  1 ),
+    'RRR'  = list( 3, 0.,   999., NULL,  NULL,  1.,  1 ),
+    'TR'   = list( 1, 1.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QCI'  = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI1'  = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI2'  = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI3'  = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI4'  = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI5'  = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI6'  = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI7'  = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI8'  = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI9'  = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI10' = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI11' = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI12' = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI13' = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI14' = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI15' = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI16' = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI17' = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI18' = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI19' = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI20' = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'QI21' = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
+    'HDG'  = list( 3, 0.,   360., NULL,  NULL,  1.,  1 ),
+    'COG'  = list( 3, 0.,   360., NULL,  NULL,  1.,  1 ),
+    'SOG'  = list( 2, 0.,   99.,  NULL,  NULL,  1.,  1 ),
+    'SLL'  = list( 2, 0.,   99.,  NULL,  NULL,  1.,  1 ),
+    'SLHH' = list( 3, -99., 99.,  NULL,  NULL,  1.,  1 ),
+    'RWD'  = list( 3, 1.,   362., NULL,  NULL,  1.,  1 ),
+    'RWS'  = list( 3, 0.0,  99.9, NULL,  NULL,  0.1, 1 )
+)
+# Model quality control attachment
+IMMA.attachments[[3]] = 'mqc';
+IMMA.parameters[[3]]  = c('CCCC','BUID','BMP','BSWU','SWU',
+                          'BSWV','SWV','BSAT','BSRH','SRH',
+			  'SIX','BSST','MST','MSH','BY',
+			  'BM','BD','BH','BFL')
+IMMA.definitions[[3]] = list(
+    'CCCC' = list( 4, 65.,   90.,    NULL,  NULL,  NULL,  3 ),
+    'BUID' = list( 6, 48.,   57.,    65.,   90.,   NULL,  3 ),
+    'BMP'  = list( 5, 870.0, 1074.6, NULL,  NULL,  0.1,   1 ),
+    'BSWU' = list( 4, -99.9, 99.9,   NULL,  NULL,  0.1,   1 ),
+    'SWU'  = list( 4, -99.9, 99.9,   NULL,  NULL,  0.1,   1 ),
+    'BSWV' = list( 4, -99.9, 99.9,   NULL,  NULL,  0.1,   1 ),
+    'SWV'  = list( 4, -99.9, 99.9,   NULL,  NULL,  0.1,   1 ),
+    'BSAT' = list( 4, -99.9, 99.9,   NULL,  NULL,  0.1,   1 ),
+    'BSRH' = list( 3, 0.,    100.,   NULL,  NULL,  1.,    1 ),
+    'SRH'  = list( 3, 0.,    100.,   NULL,  NULL,  1.,    1 ),
+    'SIX'  = list( 1, 2.,    3.,     NULL,  NULL,  1.,    1 ),
+    'BSST' = list( 4, -99.9, 99.9,   NULL,  NULL,  0.1,   1 ),
+    'MST'  = list( 1, 0.,    9.,     NULL,  NULL,  1.,    1 ),
+    'MSH'  = list( 3, 0.,    999.,   NULL,  NULL,  1.,    1 ),
+    'BY'   = list( 4, 0.,    9999.,  NULL,  NULL,  1.,    1 ),
+    'BM'   = list( 2, 1.,    12.,    NULL,  NULL,  1.,    1 ),
+    'BD'   = list( 2, 1.,    31.,    NULL,  NULL,  1.,    1 ),
+    'BH'   = list( 2, 0.,    23.,    NULL,  NULL,  1.,    1 ),
+    'BFL'  = list( 2, 0.,    99.,    NULL,  NULL,  1.,    1 )
+)
+# Metadata attachment
+IMMA.attachments[[4]] = 'metadata'
+IMMA.parameters[[4]]  = c('C1M','OPM','KOV','COR','TOB','TOT',
+                          'EOT','LOT','TOH','EOH','SIM','LOV',
+			  'DOS','HOP','HOT','HOB','HOA','SMF',
+			  'SME','SMV')
+IMMA.definitions[[4]] = list(
+    'C1M' = list( 2, 65., 90.,    NULL,  NULL,  NULL,  3 ),
+    'OPM' = list( 2, 0.,  99.,    NULL,  NULL,  1.,    1 ),
+    'KOV' = list( 2, 32., 126.,   NULL,  NULL,  NULL,  3 ),
+    'COR' = list( 2, 65., 90.,    NULL,  NULL,  NULL,  3 ),
+    'TOB' = list( 3, 32., 126.,   NULL,  NULL,  NULL,  3 ),
+    'TOT' = list( 3, 32., 126.,   NULL,  NULL,  NULL,  3 ),
+    'EOT' = list( 2, 32., 126.,   NULL,  NULL,  NULL,  3 ),
+    'LOT' = list( 2, 32., 126.,   NULL,  NULL,  NULL,  3 ),
+    'TOH' = list( 1, 32., 126.,   NULL,  NULL,  NULL,  3 ),
+    'EOH' = list( 2, 32., 126.,   NULL,  NULL,  NULL,  3 ),
+    'SIM' = list( 3, 32., 126.,   NULL,  NULL,  NULL,  3 ),
+    'LOV' = list( 3, 0.,  999.,   NULL,  NULL,  1.,    1 ),
+    'DOS' = list( 2, 0.,  99.,    NULL,  NULL,  1.,    1 ),
+    'HOP' = list( 3, 0.,  999.,   NULL,  NULL,  1.,    1 ),
+    'HOT' = list( 3, 0.,  999.,   NULL,  NULL,  1.,    1 ),
+    'HOB' = list( 3, 0.,  999.,   NULL,  NULL,  1.,    1 ),
+    'HOA' = list( 3, 0.,  999.,   NULL,  NULL,  1.,    1 ),
+    'SMF' = list( 5, 0.,  99999., NULL,  NULL,  1.,    1 ),
+    'SME' = list( 5, 0.,  99999., NULL,  NULL,  1.,    1 ),
+    'SMV' = list( 2, 0.,  99.,    NULL,  NULL,  1.,    1 )
+)
+# Historical attachment
+IMMA.attachments[[5]] = 'historical'
+IMMA.parameters[[5]]  = c('WFI','WF','XWI','XW','XDI','XD',
+                       'SLPI','TAI','TA','XNI','XN')
+IMMA.definitions[[5]] = list(
+    'WFI'  = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'WF'   = list( 2, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'XWI'  = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'XW'   = list( 3, NULL,  NULL,  NULL,  NULL,  0.1,   1 ),
+    'XDI'  = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'XD'   = list( 2, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'SLPI' = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'TAI'  = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'TA'   = list( 4, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'XNI'  = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'XN'   = list( 2, NULL,  NULL,  NULL,  NULL,  NULL,  1 )
+)
+# Supplemental attachment
+IMMA.attachments[[99]] = 'supplemental'
+IMMA.parameters[[99]]  = c('ATTE','SUPD')
+IMMA.definitions[[99]] = list(
+    'ATTE' = list( 1,     NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'SUPD' = list( NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  3 )
+)
 
 # Find out which attachment a parameter is in
 IMMA.whichAttachment <- function(parameter) {
-    for(i in c(100)) {# ,1,2,3,4,5,99)) {
+    for(i in c(100,1,2,3,4,5,99)) {
         if(!is.null(IMMA.definitions[[i]][[parameter]])) { return(i) }
     }
     stop(sprintf("No parameter %s in IMMA",parameter))
@@ -130,14 +336,15 @@ IMMA.checkParameter <- function(ob,parameter) {
   result<-rep(TRUE,length(ob[[parameter]]))
               
    # Character data can be anything
-    if ( definitions[6] == 3 ) {
+    if ( definitions[7] == 3 ) {
         return(result); 
     }
   
-    w<-which(((is.null(definitions[1]) | definitions[1] <= ob[[parameter]])
+    w<-which(!is.null(ob[[parameter]]) & !is.na(ob[[parameter]]) &
+             ((is.null(definitions[1]) | definitions[1] <= ob[[parameter]])
         &     (is.null(definitions[2]) | definitions[2] >= ob[[parameter]] )) |
              ((is.null(definitions[3]) | definitions[3] <= ob[[parameter]])
-        &     (is.null(definitions[4]) | definitions[4] >= this[[parameter]] )))
+        &     (is.null(definitions[4]) | definitions[4] >= ob[[parameter]] )))
     if(length(w<length(ob[[parameter]]) result[!w]<-FALSE
   return(result)
 }
@@ -147,88 +354,67 @@ IMMA.encodeAttachment <- function(ob,attachment){
 
     Result = rep('',length(ob$YR))
     for ( parameter in IMMA.parameters[[attachment]]) {
-        if ( this[parameters[i]]!=null 
-            && this.checkParameter( parameters[i], definitions ) )
-        {
-            var Tmp = this[parameters[i]];
+        definitions<-IMMA.definitionsFor(parameter)
 
-            // Scale to integer units for output
-            if ( definitions[parameters[i]][5] != null ) {
-                Tmp /= definitions[parameters[i]][5];
-                Tmp = parseInt(Tmp);
-            }
-
-            // Encode as base36 if required
-            if ( definitions[parameters[i]][5] == 2 ) {
-                Tmp = IMMA.encode_base36(Tmp);
-            }
-
-            // Convert to a string of the correct length
-            if ( definitions[parameters[i]][6] == 1 ) {
-
-                // Integer
-                if ( definitions[parameters[i]][0] != null ) {
-                    Tmp=Tmp.toString();
-                    while(Tmp.length<definitions[parameters[i]][0]) {
-                        Tmp=" "+Tmp;
-                    }
-                }
-                else {
-
-                    // Undefined length - should never happen
-                    Tmp=Tmp.toString();
-                }
-            }
-            else {
-
-                // String
-                if ( definitions[parameters[i]][0] != null ) {
-                    Tmp=Tmp.toString();
-                    while(Tmp.length<definitions[parameters[i]][0]) {
-                        Tmp=Tmp+" ";
-                    }
-                }
-                else {
-                
-                   // Undefined length - only for supplementary data
-                   Tmp=Tmp.toString(); 
-                }
-            }
-            Result += Tmp;
-
+        # Treat differently according to type
+        if(definitions[7]==3) { # Character, just print
+          w<-which(!is.null(ob[[parameter]]))
+          if(length(w)>0) {
+              if(!is.null(definitions[1])) {
+                 Result[w]<-sprintf(sprintf("%%s%%.%ds",definitions[1]),Result[w],ob[[parameter]][w])
+              } else {  # Unspecified length, supplementary only - use length of data
+                 Result[w]<-sprintf("%s%s",Result[w],ob[[parameter]][w])
+              }
+          }
+          if(length(w)<length(Result)) { # Missing and bad values are encoded as blanks
+              if(!is.null(definitions[1])) {
+                 Result[!w]<-sprintf(sprintf("%%s%%.%ss",definitions[1]),Result[!w],' ')
+              } else {  # Unspecified length, supplementary only - use length of data
+                 Result<-sprintf("%s%s",Result[!w],' ')
+              }
+          }
         }
-        else {
-            // Undefined data - make a blank string of the corect length
-            if ( definitions[parameters[i]][0] != null ) {
-                for(var j=0;j<definitions[parameters[i]][0];j++) {
-                    Result += " ";
-                }
-            }
-            else {
-
-                // Undefined data with unknown length - treat as blank string
-                Result += " ";
-            }
-        }
-    }
-    
-    // Done all the parameters, add the ID and length to the start
-    // (except for core)
-    if ( attachment != 0 ) {
+        if(definitions[7]==1) { # Integer - check, scale, round and print
+          w<-which(!is.na(ob[[parameter]]) & IMMA.checkParameter(ob,parameter))
+          if(length(w)>0) {
+             scaled<-ob[[parameter]][w]/definitions[6]
+             round<-as.integer(scaled+0.5) # nearest integer
+             Result[w]<-sprintf(sprintf("%%s%%.%dd",definitions[1]),Result[w],round)
+         }
+          if(length(w)<length(Result)) { # Missing and bad values are encoded as blanks
+             Result[!w]<-sprintf(sprintf("%%s%%.%ds",definitions[1]),Result[!w],' ')
+          }
+         }
+        if(definitions[7]==3) { # Base36 - check, scale, convert and print
+          w<-which(!is.na(ob[[parameter]]) & IMMA.checkParameter(ob,parameter))
+          if(length(w)>0) {
+             scaled<-ob[[parameter]][w]/definitions[6]
+             round<-as.integer(scaled+0.5) # nearest integer
+             enc<-IMMA.encode_base36(round)
+             Result[w]<-sprintf(sprintf("%%s%%.%ds",definitions[1]),Result[w],round)
+         }
+          if(length(w)<length(Result)) { # Missing and bad values are encoded as blanks
+             Result[!w]<-sprintf(sprintf("%%s%%.%ds",definitions[1]),Result[!w],' ')
+          }
+         }
+      }
+    # Done all the parameters, add the ID and length to the start
+    # (except for core)
+    if ( attachment != 100 ) {
         if ( attachment == 99 ) {
-            Result = " 0"+Result;
+            Result = sprintf(" 0%s",Result)
+        } else {
+            Result = sprintf("%2d%s",nchar(Result)+4,Result)
         }
-        else {
-            var Tmp = (Result.length+4).toString();
-            if(Tmp.length<2) { Tmp = " "+Tmp; }
-            Result = Tmp+Result;
-        }
-        Tmp = attachment.toString();
-        if(Tmp.length<2) { Tmp= " "+Tmp; }
-        Result = Tmp+Result;
+        Result = sprintf("%2d%s",attachment,Result)
     }
 
-    return Result;
+    return(Result)
+  }
+
+# Make a string version of the whole record
+IMMA.packString <- function(ob) {
+  
 }
 
 
