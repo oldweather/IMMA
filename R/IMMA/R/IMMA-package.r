@@ -385,7 +385,7 @@ IMMA.encodeAttachment <- function(ob,attachment){
              Result[!w]<-sprintf(sprintf("%%s%%.%ds",definitions[1]),Result[!w],' ')
           }
          }
-        if(definitions[7]==3) { # Base36 - check, scale, convert and print
+        if(definitions[7]==2) { # Base36 - check, scale, convert and print
           w<-which(!is.na(ob[[parameter]]) & IMMA.checkParameter(ob,parameter))
           if(length(w)>0) {
              scaled<-ob[[parameter]][w]/definitions[6]
@@ -414,10 +414,67 @@ IMMA.encodeAttachment <- function(ob,attachment){
 
 # Make a string version of the whole record
 IMMA.packString <- function(ob) {
-  
+    Result = rep('',length(ob$YR))
+    for(attachment in c(100,1,2,3,4,5,99)) {
+      w<-IMMA.hasAttachment(ob,attachment)
+      if(length(w)>0) {
+        Result[w]<-sprintf("%s%s",Result,IMMA.encodeAttachment(ob[w,],attachment))
+      }
+    }
+    return(Result)
 }
 
+# Unpack the string version of an attachment into a data frame
+IMMA.decodeAttachment <- function(ob.strings,attachment){
+   Result<-data.frame()
+   pstart<-1
+   for ( parameter in IMMA.parameters[[attachment]]) {
+      definitions<-IMMA.definitionsFor(parameter)
+      pstring<-substr(ob.strings,pstart,pstart+definitions[1])
+      pstart<-pstart+definitions[1]
+      pstring<-sub("^\\s+", "", pstring) # strip leading blanks
+      w<-which(nchar(pstring)==0)        # all blank - set to missing
+      
+      if(definitions[7]==3) { # Character,add directly
+        if(length(w)>0) {
+           is.na(pstring[w])<-TRUE
+        }
+        Result[[parameter]]<-pstring
+      }
+      if(definitions[7]==2) { # Base36 - convert, scale and add
+        pint<-integer(length(pstring))
+        if(length(w)>0) {
+           is.na(pint[w])<-TRUE
+        }
+        if(length(w)<length(pint)) {
+          pint[-w]<-IMMA.decode_base36(pstring[-w])
+        }
+        Result[[parameter]]<-pint*dimensions[6]
+      }
+      if(definitions[7]==1) { numeric data
+        pint<-integer(length(pstring))
+        if(length(w)>0) {
+           is.na(pint[w])<-TRUE
+        }
+        Result[[parameter]]<-pint*dimensions[6]
+      }
+    }
+   return(Result)
+}
 
+# Unpack from string format into a data frame
+IMMA.unpack <- function(ob.strings) {
+
+   # split the strings into a separate vector for each attachment
+   atsplit<-data.frame()
+   # Core is allways present and first
+   atsplit[[100]]<-substr(ob.strings,1,108)
+   ob.strings<-substring(ob.strings,109)
+   w<-which(nchar(ob.strings)>4)
+   while(length(w)>0) { 
+     
+   
+}
 
 
 #' Read in all the IMMA records from a connection
