@@ -280,9 +280,8 @@ IMMA.definitions[[5]] = list(
 )
 # Supplemental attachment
 IMMA.attachments[[99]] = 'supplemental'
-IMMA.parameters[[99]]  = c('ATTE','SUPD')
+IMMA.parameters[[99]]  = c('SUPD')
 IMMA.definitions[[99]] = list(
-    'ATTE' = list( 1,     NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
     'SUPD' = list( NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  3 )
 )
 
@@ -296,7 +295,7 @@ IMMA.definitions[[99]] = list(
 #' @export
 #' @param parameter - Name of parameter to be found
 #' @return the number of the attachment containing that parameter.
-IIMMA.whichAttachment <- function(parameter) {
+IMMA.whichAttachment <- function(parameter) {
     for(i in c(100,1,2,3,4,5,99)) {
         if(!is.null(IMMA.definitions[[i]][[parameter]])) { return(i) }
     }
@@ -447,13 +446,17 @@ IMMA.packString <- function(ob) {
 
 # Unpack the string version of an attachment into a data frame
 IMMA.decodeAttachment <- function(ob.strings,attachment){
-   Result<-data.frame()
+   Result<-list()
    pstart<-1
    for ( parameter in IMMA.parameters[[attachment]]) {
       definitions<-IMMA.definitionsFor(parameter)
-      pstring<-substr(ob.strings,pstart,pstart+definitions[1])
-      pstart<-pstart+definitions[1]
-      pstring<-sub("^\\s+", "", pstring) # strip leading blanks
+      if(!is.null(definitions[[1]])) {
+         pstring<-substr(ob.strings,pstart,pstart+definitions[[1]]-1)
+         pstart<-pstart+definitions[[1]]
+         pstring<-sub("^\\s+", "", pstring) # strip leading blanks
+      } else { # Special case for variable length supplemental
+         pstring<-substring(ob.strings,pstart)
+      }
       w<-which(nchar(pstring)==0)        # all blank - set to missing
       
       if(definitions[7]==3) { # Character,add directly
@@ -470,17 +473,17 @@ IMMA.decodeAttachment <- function(ob.strings,attachment){
         if(length(w)<length(pint)) {
           pint[-w]<-IMMA.decode_base36(pstring[-w])
         }
-        Result[[parameter]]<-pint*dimensions[6]
+        Result[[parameter]]<-pint*definitions[[6]]
       }
       if(definitions[7]==1) { # numeric data - scale and add
-        pint<-integer(length(pstring))
+        pint<-as.integer(pstring)
         if(length(w)>0) {
            is.na(pint[w])<-TRUE
         }
-        Result[[parameter]]<-pint*dimensions[6]
+        Result[[parameter]]<-pint*definitions[[6]]
       }
     }
-   return(Result)
+   return(as.data.frame(Result,stringsAsFactors=FALSE))
 }
 
 # Unpack from string format into a data frame
@@ -510,7 +513,22 @@ IMMA.unpack <- function(ob.strings) {
      }
      w<-which(nchar(ob.strings)>4)
    }
-   return(atsplit)
+
+   # Now create the data frame
+   Result<-IMMA.decodeAttachment(atsplit[[100]],100)
+   for(attachment in  c(1,2,3,4,5,99)) {
+     flagName<-sprintf("has.%s",IMMA.attachments[[attachment]])
+     Result[[flagName]]<-FALSE
+     if(length(atsplit[[attachment]])>0) {
+       w<-which(nchar(atsplit[[attachment]])>0)
+       Result[[flagName]][w]<-TRUE
+       if(length(w)<length(atsplit[[attachment]])) {
+         atsplit[[attachment]][!w]<-''
+       }
+       Result<-cbind(Result,IMMA.decodeAttachment(atsplit[[attachment]],attachment))
+     }
+   }
+   return(Result)
 }
 
 
@@ -522,10 +540,14 @@ IMMA.unpack <- function(ob.strings) {
 #' Currently only supports IMMA0 format.
 #'
 #' @export
-#' @param con Connection to read data from.
+#' @param con Connection to read data from - or string, see readLines().
 #' @param n - maximum number of records to read (negative means read all)
 #'   repeatedly call with n=1 to get records 1 at a time, use n=-1
 #'   (default) to get them all in one go.
 #' @return data frame - 1 row per record, column names as in the IMMA
 #'  documentation.
-#IMMA.read<-function(con,n=-1) {
+IMMA.read<-function(con,n=-1) {
+   l<-readLines(con=con,n=n)
+   return(IMMA.unpack(l))
+}
+  
