@@ -286,8 +286,17 @@ IMMA.definitions[[99]] = list(
     'SUPD' = list( NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  3 )
 )
 
-# Find out which attachment a parameter is in
-IMMA.whichAttachment <- function(parameter) {
+#' Find out which attachment a parameter is in
+#'
+#' IMMA data are divided into core parameters and optional attachments
+#' this function gives the attachment number of a parameter name.
+#'
+#' Attachment 100 is core. 
+#'
+#' @export
+#' @param parameter - Name of parameter to be found
+#' @return the number of the attachment containing that parameter.
+IIMMA.whichAttachment <- function(parameter) {
     for(i in c(100,1,2,3,4,5,99)) {
         if(!is.null(IMMA.definitions[[i]][[parameter]])) { return(i) }
     }
@@ -324,7 +333,19 @@ IMMA.encode_base36 <- function(n,p=0) {
     return(s)
 }
 
-# Check the value for a parameter is inside its acceptable range(s)
+#' Check the value for a parameter is inside its acceptable range(s)
+#'
+#' Flags data which is physically impossibe and can't be written in IMMA.
+#'
+#' The IMMA format constrains the possible ranges of numeric parameters
+#'  data outside those ranges can't be written in the format.This function
+#'  tests all the data for a selected paramete is inside the acceptable range.
+#'
+#' @export
+#' @param ob Observations data frame.
+#' @param parameter - Name of parameter to be tested
+#' @return for each observbation, TRUE if within range (or no range defined), FALSE if
+#'  outside range.
 IMMA.checkParameter <- function(ob,parameter) {
 
   if(is.null(parameter)) stop ("Missing parameter")
@@ -342,10 +363,10 @@ IMMA.checkParameter <- function(ob,parameter) {
   
     w<-which(!is.null(ob[[parameter]]) & !is.na(ob[[parameter]]) &
              ((is.null(definitions[1]) | definitions[1] <= ob[[parameter]])
-        &     (is.null(definitions[2]) | definitions[2] >= ob[[parameter]] )) |
-             ((is.null(definitions[3]) | definitions[3] <= ob[[parameter]])
+        &     (is.null(definitions[2]) | definitions[2] >= ob[[parameter]] ))
+        |    ((is.null(definitions[3]) | definitions[3] <= ob[[parameter]])
         &     (is.null(definitions[4]) | definitions[4] >= ob[[parameter]] )))
-    if(length(w<length(ob[[parameter]]) result[!w]<-FALSE
+    if(length(w)<length(ob[[parameter]])) result[!w]<-FALSE
   return(result)
 }
 
@@ -451,7 +472,7 @@ IMMA.decodeAttachment <- function(ob.strings,attachment){
         }
         Result[[parameter]]<-pint*dimensions[6]
       }
-      if(definitions[7]==1) { numeric data
+      if(definitions[7]==1) { # numeric data - scale and add
         pint<-integer(length(pstring))
         if(length(w)>0) {
            is.na(pint[w])<-TRUE
@@ -466,23 +487,39 @@ IMMA.decodeAttachment <- function(ob.strings,attachment){
 IMMA.unpack <- function(ob.strings) {
 
    # split the strings into a separate vector for each attachment
-   atsplit<-data.frame()
-   # Core is allways present and first
+   atsplit<-list()
+   # Core is always present and first
    atsplit[[100]]<-substr(ob.strings,1,108)
    ob.strings<-substring(ob.strings,109)
    w<-which(nchar(ob.strings)>4)
-   while(length(w)>0) { 
-     
-   
+   while(length(w)>0) {
+     att.no<-as.integer(substr(ob.strings[w],1,2))
+     att.len<-as.integer(substr(ob.strings[w],3,4))
+     for(attachment in c(1,2,3,4,5)) {
+        w2<-which(att.no==attachment)
+        if(length(w2)>0) {
+          atsplit[[attachment]][w][w2]<-substr(ob.strings[w][w2],5,att.len)
+          ob.strings[w][w2]<-substring(ob.strings[w][w2],att.len+1)
+        }
+      }
+     attachment<-99 # No set length - use the rest of the string
+     w2<-which(att.no==attachment)
+     if(length(w2)>0) {
+       atsplit[[attachment]][w][w2]<-substring(ob.strings[w][w2],5)
+       ob.strings[w][w2]<-''
+     }
+     w<-which(nchar(ob.strings)>4)
+   }
+   return(atsplit)
 }
 
 
 #' Read in all the IMMA records from a connection
 #'
-#' Currently only reads the core element - discards attachments
+#' Keeps the data internally in a data frame - size
+#'  depends on which attachments are present in the source.
 #'
-#' I'm not sure how to read variable-format records in an efficient fashion
-#'  so at the moment this only looks at the fixed-format component.
+#' Currently only supports IMMA0 format.
 #'
 #' @export
 #' @param con Connection to read data from.
@@ -491,4 +528,4 @@ IMMA.unpack <- function(ob.strings) {
 #'   (default) to get them all in one go.
 #' @return data frame - 1 row per record, column names as in the IMMA
 #'  documentation.
-IMMA.read<-function(con,n=-1) {
+#IMMA.read<-function(con,n=-1) {
