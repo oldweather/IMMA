@@ -9,11 +9,11 @@ IMMA.parameters  <- list()
 IMMA.definitions <- list()
 
 # Core section
-IMMA.attachments[[100]] <- 'core'
+IMMA.attachments[['C0']] <- 'Core'
 
 # List of parameters in core section
 # In the order they are in on disc
-IMMA.parameters[[100]] <- c('YR','MO','DY','HR','LAT','LON','IM','ATTC',
+IMMA.parameters[['C0']] <- c('YR','MO','DY','HR','LAT','LON','IM','ATTC',
                           'TI','LI','DS','VS','NID','II','ID','C1',
 			  'DI','D','WI','W','VI','VV','WW','W1',
                           'SLP','A','PPP','IT','AT','WBTI','WBT',
@@ -29,7 +29,7 @@ IMMA.parameters[[100]] <- c('YR','MO','DY','HR','LAT','LON','IM','ATTC',
 #    Its maximum value (alternative representation)
 #    Its units scale
 #    Its encoding (1 = integer, 3= character, 2= base36)
-IMMA.definitions[[100]] <- list(
+IMMA.definitions[['C0']] <- list(
     'YR'   = list( 4, 1600.,  2024.,  NULL,    NULL,   1.,    1 ),
     'MO'   = list( 2, 1.,     12.,    NULL,    NULL,   1.,    1 ),
     'DY'   = list( 2, 1.,     31.,    NULL,    NULL,   1.,    1 ),
@@ -80,8 +80,8 @@ IMMA.definitions[[100]] <- list(
     'SH'   = list( 2, 0.,     99.,    NULL,    NULL,   1.,    1 )
 )
 #ICOADS attachment
-IMMA.attachments[[1]] = 'icoads';
-IMMA.parameters[[1]]  = c('BSI','B10','B1','DCK','SID','PT',
+IMMA.attachments[['C1']] = 'ICOADS';
+IMMA.parameters[['C1']]  = c('BSI','B10','B1','DCK','SID','PT',
                           'DUPS','DUPC','TC','PB','WX','SX',
 			  'C2','SQZ','SQA','AQZ','AQA','UQZ',
 			  'UQA','VQZ','VQA','PQZ','PQA','DQZ',
@@ -89,7 +89,7 @@ IMMA.parameters[[1]]  = c('BSI','B10','B1','DCK','SID','PT',
 			  'RF','ZNC','WNC','BNC','XNC','YNC',
 			  'PNC','ANC','GNC','DNC','SNC','CNC',
 			  'ENC','FNC','TNC','QCE','LZ','QCZ')
-IMMA.definitions[[1]] = list(
+IMMA.definitions[['C1']] = list(
     'BSI'  = list( 1, NULL,  NULL,  NULL, NULL, 1., 1 ),
     'B10'  = list( 3, 1.,    648.,  NULL, NULL, 1., 1 ),
     'B1'   = list( 2, 0.,    99.,   NULL, NULL, 1., 1 ),
@@ -140,9 +140,15 @@ IMMA.definitions[[1]] = list(
     'LZ'   = list( 1, 1.,    1.,    NULL, NULL, 1., 1 ),
     'QCZ'  = list( 2, 0.,    31.,   NULL, NULL, 1., 1 )
 )
-# IMMT2 attachment
-IMMA.attachments[[2]] = 'immt2'
-IMMA.parameters[[2]]  = c('OS','OP','FM','IX','W2','SGN',
+# Supplemental attachment
+IMMA.attachments[['C99']] = 'supplemental'
+IMMA.parameters[['C99']]  = c('SUPD')
+IMMA.definitions[['C99']] = list(
+    'SUPD' = list( NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  3 )
+)
+# IMMT5 attachment
+IMMA.attachments[['C5']] = 'IMMT-5/FM 13'
+IMMA.parameters[['C5']]  = c('OS','OP','FM','IX','W2','SGN',
                           'SGT','SGH','WMI','SD2','SP2',
 			  'SH2','IS','ES','RS','IC1','IC2',
 			  'IC3','IC4','IC5','IR','RRR','TR',
@@ -152,7 +158,107 @@ IMMA.parameters[[2]]  = c('OS','OP','FM','IX','W2','SGN',
 			  'QI15','QI16','QI17','QI18','QI19',
 			  'QI20','QI21','HDG','COG','SOG',
 			  'SLL','SLHH','RWD','RWS')
-IMMA.definitions[[2]] = list(
+IMMA.definitions[['C5']] = list(
+    'OS'    = list( 1,   0.,       6.,   NULL,  NULL,  1.,  1 ),
+    'OP'    = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'FM'    = list( 1,   0.,      36.,   NULL,  NULL,  1.,  2 ),
+    'IMMV'  = list( 1,   0.,      36.,   NULL,  NULL,  1.,  2 ),
+    'IX'    = list( 1,   1.,       7.,   NULL,  NULL,  1.,  1 ),
+    'W2'    = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'WMI'   = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'SD2'   = list( 2,   0.,      38.,   NULL,  NULL,  1.,  1 ),
+    'SP2'   = list( 2,   0.,      30.,     0.,   99.,  1.,  1 ),
+    'SH2'   = list( 2,   0.,      99.,   NULL,  NULL,  1.,  1 ),
+    'IS'    = list( 1,   1.,       5.,   NULL,  NULL,  1.,  1 ),
+    'ES'    = list( 2,   0.,      99.,   NULL,  NULL,  1.,  1 ),
+    'RS'    = list( 1,   0.,       4.,   NULL,  NULL,  1.,  1 ),
+    'IC1'   = list( 1,   0.,      10.,   NULL,  NULL,  1.,  2 ),
+    'IC2'   = list( 1,   0.,      10.,   NULL,  NULL,  1.,  2 ),
+    'IC3'   = list( 1,   0.,      10.,   NULL,  NULL,  1.,  2 ),
+    'IC4'   = list( 1,   0.,      10.,   NULL,  NULL,  1.,  2 ),
+    'IC5'   = list( 1,   0.,      10.,   NULL,  NULL,  1.,  2 ),
+    'IR'    = list( 1,   0.,       4.,   NULL,  NULL,  1.,  1 ),
+    'RRR'   = list( 3,   0.,     999.,   NULL,  NULL,  1.,  1 ),
+    'TR'    = list( 1,   1.,       9.,   NULL,  NULL,  1.,  1 ),
+    'NU'    = list( 1, NULL,     NULL,   NULL,  NULL,  1.,  3 ),
+    'QCI'   = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI1'   = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI2'   = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI3'   = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI4'   = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI5'   = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI6'   = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI7'   = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI8'   = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI9'   = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI10'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI11'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI12'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI13'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI14'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI15'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI16'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI17'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI18'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI19'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI20'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI21'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'HDG'   = list( 3,   0.,     360.,   NULL,  NULL,  1.,  1 ),
+    'COG'   = list( 3,   0.,     360.,   NULL,  NULL,  1.,  1 ),
+    'SOG'   = list( 2,   0.,      99.,   NULL,  NULL,  1.,  1 ),
+    'SLL'   = list( 2,   0.,      99.,   NULL,  NULL,  1.,  1 ),
+    'SLHH'  = list( 3, -99.,      99.,   NULL,  NULL,  1.,  1 ),
+    'RWD'   = list( 3,   1.,     362.,   NULL,  NULL,  1.,  1 ),
+    'RWS'   = list( 3,  0.0,     99.9,   NULL,  NULL,  0.1, 1 )
+    'QI22'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI23'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI24'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI25'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI26'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI27'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI28'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'QI29'  = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
+    'RH'    = list( 4,   0.,     100.,   NULL,  NULL,  0.1, 1 ),
+    'RHI'   = list( 1,   0.,       4.,   NULL,  NULL,  1.,  1 ),
+    'AWSI'  = list( 1,   0.,       2.,   NULL,  NULL,  1.,  1 ),
+    'IMONO' = list( 7,   0., 9999999.,   NULL,  NULL,  1.,  1 ),
+)
+
+# Proposed attachments - not yet final
+
+# Historical attachment - proposed
+IMMA.attachments[['CP5']] = 'historical'
+IMMA.parameters[['CP5']]  = c('WFI','WF','XWI','XW','XDI','XD',
+                       'SLPI','TAI','TA','XNI','XN')
+IMMA.definitions[['CP5']] = list(
+    'WFI'  = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'WF'   = list( 2, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'XWI'  = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'XW'   = list( 3, NULL,  NULL,  NULL,  NULL,  0.1,   1 ),
+    'XDI'  = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'XD'   = list( 2, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'SLPI' = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'TAI'  = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'TA'   = list( 4, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'XNI'  = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
+    'XN'   = list( 2, NULL,  NULL,  NULL,  NULL,  NULL,  1 )
+)
+
+# Deprecated attachments
+
+# IMMT2 attachment - deprecated
+IMMA.attachments[['C2']] = 'IMMT-2/FM 13 (deprecated)'
+IMMA.parameters[['C2']]  = c('OS','OP','FM','IX','W2','SGN',
+                          'SGT','SGH','WMI','SD2','SP2',
+			  'SH2','IS','ES','RS','IC1','IC2',
+			  'IC3','IC4','IC5','IR','RRR','TR',
+			  'QCI','QI1','QI2','QI3','QI4',
+			  'QI5','QI6','QI7','QI8','QI9',
+			  'QI10','QI11','QI12','QI13','QI14',
+			  'QI15','QI16','QI17','QI18','QI19',
+			  'QI20','QI21','HDG','COG','SOG',
+			  'SLL','SLHH','RWD','RWS')
+IMMA.definitions[['C2']] = list(
     'OS'   = list( 1, 0.,   6.,   NULL,  NULL,  1.,  1 ),
     'OP'   = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
     'FM'   = list( 2, 0.,   8.,   NULL,  NULL,  1.,  1 ),
@@ -206,13 +312,13 @@ IMMA.definitions[[2]] = list(
     'RWD'  = list( 3, 1.,   362., NULL,  NULL,  1.,  1 ),
     'RWS'  = list( 3, 0.0,  99.9, NULL,  NULL,  0.1, 1 )
 )
-# Model quality control attachment
-IMMA.attachments[[3]] = 'mqc';
-IMMA.parameters[[3]]  = c('CCCC','BUID','BMP','BSWU','SWU',
+# Model quality control attachment - deprecated
+IMMA.attachments[['C3']] = 'Model quality control (deprecated)';
+IMMA.parameters[['C3']]  = c('CCCC','BUID','BMP','BSWU','SWU',
                           'BSWV','SWV','BSAT','BSRH','SRH',
 			  'SIX','BSST','MST','MSH','BY',
 			  'BM','BD','BH','BFL')
-IMMA.definitions[[3]] = list(
+IMMA.definitions[['C3']] = list(
     'CCCC' = list( 4, 65.,   90.,    NULL,  NULL,  NULL,  3 ),
     'BUID' = list( 6, 48.,   57.,    65.,   90.,   NULL,  3 ),
     'BMP'  = list( 5, 870.0, 1074.6, NULL,  NULL,  0.1,   1 ),
@@ -233,13 +339,13 @@ IMMA.definitions[[3]] = list(
     'BH'   = list( 2, 0.,    23.,    NULL,  NULL,  1.,    1 ),
     'BFL'  = list( 2, 0.,    99.,    NULL,  NULL,  1.,    1 )
 )
-# Metadata attachment
-IMMA.attachments[[4]] = 'metadata'
-IMMA.parameters[[4]]  = c('C1M','OPM','KOV','COR','TOB','TOT',
+# Ship Metadata attachment - deprecated
+IMMA.attachments[['C4']] = 'Ship metadata (deprecated)'
+IMMA.parameters[['C4']]  = c('C1M','OPM','KOV','COR','TOB','TOT',
                           'EOT','LOT','TOH','EOH','SIM','LOV',
 			  'DOS','HOP','HOT','HOB','HOA','SMF',
 			  'SME','SMV')
-IMMA.definitions[[4]] = list(
+IMMA.definitions[['C4']] = list(
     'C1M' = list( 2, 65., 90.,    NULL,  NULL,  NULL,  3 ),
     'OPM' = list( 2, 0.,  99.,    NULL,  NULL,  1.,    1 ),
     'KOV' = list( 2, 32., 126.,   NULL,  NULL,  NULL,  3 ),
@@ -261,29 +367,7 @@ IMMA.definitions[[4]] = list(
     'SME' = list( 5, 0.,  99999., NULL,  NULL,  1.,    1 ),
     'SMV' = list( 2, 0.,  99.,    NULL,  NULL,  1.,    1 )
 )
-# Historical attachment
-IMMA.attachments[[5]] = 'historical'
-IMMA.parameters[[5]]  = c('WFI','WF','XWI','XW','XDI','XD',
-                       'SLPI','TAI','TA','XNI','XN')
-IMMA.definitions[[5]] = list(
-    'WFI'  = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
-    'WF'   = list( 2, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
-    'XWI'  = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
-    'XW'   = list( 3, NULL,  NULL,  NULL,  NULL,  0.1,   1 ),
-    'XDI'  = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
-    'XD'   = list( 2, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
-    'SLPI' = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
-    'TAI'  = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
-    'TA'   = list( 4, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
-    'XNI'  = list( 1, NULL,  NULL,  NULL,  NULL,  NULL,  1 ),
-    'XN'   = list( 2, NULL,  NULL,  NULL,  NULL,  NULL,  1 )
-)
-# Supplemental attachment
-IMMA.attachments[[99]] = 'supplemental'
-IMMA.parameters[[99]]  = c('SUPD')
-IMMA.definitions[[99]] = list(
-    'SUPD' = list( NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  3 )
-)
+
 
 #' Find out which attachment a parameter is in
 #'
