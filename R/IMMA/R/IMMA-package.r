@@ -195,51 +195,51 @@ IMMA.definitions[['C5']] = list(
 # Model quality control attachment
 IMMA.attachments[6] = 'C6' # 'Model quality control'
 IMMA.definitions[['C6']] = list(
-    'CCCC'  = list( 4, 65.,   90.,    NULL,  NULL,  NULL,  3 ),
-    'BUID'  = list( 6, 48.,   57.,    65.,   90.,   NULL,  3 ),
-    'FBSRC' = list( 1,  0.,    0.,    NULL,  NULL,  1.,    1 ),
-    'BMP'   = list( 5, 870.0, 1074.6, NULL,  NULL,  0.1,   1 ),
-    'BSWU'  = list( 4, -99.9, 99.9,   NULL,  NULL,  0.1,   1 ),
-    'SWU'   = list( 4, -99.9, 99.9,   NULL,  NULL,  0.1,   1 ),
-    'BSWV'  = list( 4, -99.9, 99.9,   NULL,  NULL,  0.1,   1 ),
-    'SWV'   = list( 4, -99.9, 99.9,   NULL,  NULL,  0.1,   1 ),
-    'BSAT'  = list( 4, -99.9, 99.9,   NULL,  NULL,  0.1,   1 ),
-    'BSRH'  = list( 3, 0.,    100.,   NULL,  NULL,  1.,    1 ),
-    'SRH'   = list( 3, 0.,    100.,   NULL,  NULL,  1.,    1 ),
-    'BSST'  = list( 4, -99.9, 99.9,   NULL,  NULL,  0.1,   1 ),
-    'MST'   = list( 1, 0.,    9.,     NULL,  NULL,  1.,    1 ),
-    'MSH'   = list( 3, -999., 9999.,  NULL,  NULL,  1.,    1 ),
-    'BY'    = list( 4, 0.,    9999.,  NULL,  NULL,  1.,    1 ),
-    'BM'    = list( 2, 1.,    12.,    NULL,  NULL,  1.,    1 ),
-    'BD'    = list( 2, 1.,    31.,    NULL,  NULL,  1.,    1 ),
-    'BH'    = list( 2, 0.,    23.,    NULL,  NULL,  1.,    1 ),
-    'BFL'   = list( 2, 0.,    99.,    NULL,  NULL,  1.,    1 )
+    'CCCC'  = list( 4,   65.,    90.,  NULL,  NULL,  NULL,  3 ),
+    'BUID'  = list( 6,   48.,    57.,   65.,   90.,  NULL,  3 ),
+    'FBSRC' = list( 1,    0.,     0.,  NULL,  NULL,    1.,  1 ),
+    'BMP'   = list( 5, 870.0, 1074.6,  NULL,  NULL,   0.1,  1 ),
+    'BSWU'  = list( 4, -99.9,   99.9,  NULL,  NULL,   0.1,  1 ),
+    'SWU'   = list( 4, -99.9,   99.9,  NULL,  NULL,   0.1,  1 ),
+    'BSWV'  = list( 4, -99.9,   99.9,  NULL,  NULL,   0.1,  1 ),
+    'SWV'   = list( 4, -99.9,   99.9,  NULL,  NULL,   0.1,  1 ),
+    'BSAT'  = list( 4, -99.9,   99.9,  NULL,  NULL,   0.1,  1 ),
+    'BSRH'  = list( 3,    0.,   100.,  NULL,  NULL,    1.,  1 ),
+    'SRH'   = list( 3,    0.,   100.,  NULL,  NULL,    1.,  1 ),
+    'BSST'  = list( 4, -99.9,   99.9,  NULL,  NULL,   0.1,  1 ),
+    'MST'   = list( 1,    0.,     9.,  NULL,  NULL,    1.,  1 ),
+    'MSH'   = list( 3, -999.,  9999.,  NULL,  NULL,    1.,  1 ),
+    'BY'    = list( 4,    0.,  9999.,  NULL,  NULL,    1.,  1 ),
+    'BM'    = list( 2,    1.,    12.,  NULL,  NULL,    1.,  1 ),
+    'BD'    = list( 2,    1.,    31.,  NULL,  NULL,    1.,  1 ),
+    'BH'    = list( 2,    0.,    23.,  NULL,  NULL,    1.,  1 ),
+    'BFL'   = list( 2,    0.,    99.,  NULL,  NULL,    1.,  1 )
 )
 
 # Ship metadata attachment
 IMMA.attachments[7] = 'C7' # 'Ship metadata'
 IMMA.definitions[['C7']] = list(
-    'MDS' = list( 1, 0.,  1.,     NULL,  NULL,  1.,    1 ),
-    'C1M' = list( 2, NULL, NULL,    NULL,  NULL,  NULL,  3 ),
-    'OPM' = list( 2, 0.,  99.,    NULL,  NULL,  1.,    1 ),
-    'KOV' = list( 2,  NULL, NULL,   NULL,  NULL,  NULL,  3 ),
-    'COR' = list( 2,  NULL, NULL,    NULL,  NULL,  NULL,  3 ),
-    'TOB' = list( 3,  NULL, NULL,   NULL,  NULL,  NULL,  3 ),
-    'TOT' = list( 3,  NULL, NULL,   NULL,  NULL,  NULL,  3 ),
-    'EOT' = list( 2,  NULL, NULL,   NULL,  NULL,  NULL,  3 ),
-    'LOT' = list( 2,  NULL, NULL,   NULL,  NULL,  NULL,  3 ),
-    'TOH' = list( 1,  NULL, NULL,   NULL,  NULL,  NULL,  3 ),
-    'EOH' = list( 2,  NULL, NULL,   NULL,  NULL,  NULL,  3 ),
-    'SIM' = list( 3,  NULL, NULL,   NULL,  NULL,  NULL,  3 ),
-    'LOV' = list( 3, 0.,  999.,   NULL,  NULL,  1.,    1 ),
-    'DOS' = list( 2, 0.,  99.,    NULL,  NULL,  1.,    1 ),
-    'HOP' = list( 3, 0.,  999.,   NULL,  NULL,  1.,    1 ),
-    'HOT' = list( 3, 0.,  999.,   NULL,  NULL,  1.,    1 ),
-    'HOB' = list( 3, 0.,  999.,   NULL,  NULL,  1.,    1 ),
-    'HOA' = list( 3, 0.,  999.,   NULL,  NULL,  1.,    1 ),
-    'SMF' = list( 5, 0.,  99999., NULL,  NULL,  1.,    1 ),
-    'SME' = list( 5, 0.,  99999., NULL,  NULL,  1.,    1 ),
-    'SMV' = list( 2, 0.,  99.,    NULL,  NULL,  1.,    1 )
+    'MDS' = list( 1,    0.,      1.,  NULL,  NULL,    1.,  1 ),
+    'C1M' = list( 2,  NULL,    NULL,  NULL,  NULL,  NULL,  3 ),
+    'OPM' = list( 2,    0.,     99.,  NULL,  NULL,    1.,  1 ),
+    'KOV' = list( 2,  NULL,    NULL,  NULL,  NULL,  NULL,  3 ),
+    'COR' = list( 2,  NULL,    NULL,  NULL,  NULL,  NULL,  3 ),
+    'TOB' = list( 3,  NULL,    NULL,  NULL,  NULL,  NULL,  3 ),
+    'TOT' = list( 3,  NULL,    NULL,  NULL,  NULL,  NULL,  3 ),
+    'EOT' = list( 2,  NULL,    NULL,  NULL,  NULL,  NULL,  3 ),
+    'LOT' = list( 2,  NULL,    NULL,  NULL,  NULL,  NULL,  3 ),
+    'TOH' = list( 1,  NULL,    NULL,  NULL,  NULL,  NULL,  3 ),
+    'EOH' = list( 2,  NULL,    NULL,  NULL,  NULL,  NULL,  3 ),
+    'SIM' = list( 3,  NULL,    NULL,  NULL,  NULL,  NULL,  3 ),
+    'LOV' = list( 3,    0.,    999.,  NULL,  NULL,    1.,  1 ),
+    'DOS' = list( 2,    0.,     99.,  NULL,  NULL,    1.,  1 ),
+    'HOP' = list( 3,    0.,    999.,  NULL,  NULL,    1.,  1 ),
+    'HOT' = list( 3,    0.,    999.,  NULL,  NULL,    1.,  1 ),
+    'HOB' = list( 3,    0.,    999.,  NULL,  NULL,    1.,  1 ),
+    'HOA' = list( 3,    0.,    999.,  NULL,  NULL,    1.,  1 ),
+    'SMF' = list( 5,    0.,  99999.,  NULL,  NULL,    1.,  1 ),
+    'SME' = list( 5,    0.,  99999.,  NULL,  NULL,    1.,  1 ),
+    'SMV' = list( 2,    0.,     99.,  NULL,  NULL,    1.,  1 )
 )
 # Near-surface oceanographic data attachment
 IMMA.attachments[8] = 'C8' # 'NOCN'
@@ -479,7 +479,14 @@ IMMA.whichAttachment <- function(parameter) {
 }
 
 # Get the definitions for a named parameter
-IMMA.definitionsFor <- function(parameter) {
+IMMA.definitionsFor <- function(parameter,current=NULL) {
+    if(parameter=='ERRD') {
+       if(current[[ICNE]]==0) inherits.attachment<-'C0'
+       else inherits.attachment<-IMMA.attachments[current[[ICNE]]]
+       inherits.parameter<-names(IMMA.definitions[[inherits.attachment]])[current[[FNE]]]# FNE-2?
+       inherits.definitions<-IMMA.definitionsFor(inherits.parameter)
+       return(inherits.definitions)
+    }
     return(IMMA.definitions[[IMMA.whichAttachment(parameter)]][[parameter]])
 }
 
@@ -510,7 +517,7 @@ IMMA.encode_base36 <- function(n,p=0) {
 
 #' Check the value for a parameter is inside its acceptable range(s)
 #'
-#' Flags data which is physically impossibe and can't be written in IMMA.
+#' Flags data which is physically impossible and can't be written in IMMA.
 #'
 #' The IMMA format constrains the possible ranges of numeric parameters
 #'  data outside those ranges can't be written in the format.This function
@@ -549,7 +556,7 @@ IMMA.checkParameter <- function(ob,parameter) {
 IMMA.encodeAttachment <- function(ob,attachment){
 
     Result = rep('',length(ob$YR))
-    for ( parameter in IMMA.parameters[[attachment]]) {
+    for ( parameter in names(IMMA.definitions[[attachment]])) {
         definitions<-IMMA.definitionsFor(parameter)
 
         # Treat differently according to type
@@ -596,8 +603,8 @@ IMMA.encodeAttachment <- function(ob,attachment){
       }
     # Done all the parameters, add the ID and length to the start
     # (except for core)
-    if ( attachment != 100 ) {
-        if ( attachment == 99 ) {
+    if ( attachment != 'C0' ) {
+        if ( attachment == 'C99' ) {
             Result = sprintf(" 0%s",Result)
         } else {
             Result = sprintf("%2d%s",nchar(Result)+4,Result)
@@ -611,7 +618,8 @@ IMMA.encodeAttachment <- function(ob,attachment){
 # Make a string version of the whole record
 IMMA.packString <- function(ob) {
     Result = rep('',length(ob$YR))
-    for(attachment in c(100,1,2,3,4,5,99)) {
+    for(attachment in c('C0','C1','C2','C3','C4','C5','C6','C7','C8','C9',
+                       'C95','C96','C97','C98','C99')) {
       w<-IMMA.hasAttachment(ob,attachment)
       if(length(w)>0) {
         Result[w]<-sprintf("%s%s",Result,IMMA.encodeAttachment(ob[w,],attachment))
@@ -624,13 +632,14 @@ IMMA.packString <- function(ob) {
 IMMA.decodeAttachment <- function(ob.strings,attachment){
    Result<-list()
    pstart<-1
-   for ( parameter in IMMA.parameters[[attachment]]) {
-      definitions<-IMMA.definitionsFor(parameter)
+   for (parameter in names(IMMA.definitions[[attachment]])) {
+      definitions<-IMMA.definitionsFor(parameter,current=Results)
       if(!is.null(definitions[[1]])) {
          pstring<-substr(ob.strings,pstart,pstart+definitions[[1]]-1)
          pstart<-pstart+definitions[[1]]
          pstring<-sub("^\\s+", "", pstring) # strip leading blanks
-      } else { # Special case for variable length supplemental
+      } else { # Variable length - tricky
+         # Only get here for SUPD - take the rest of the string
          pstring<-substring(ob.strings,pstart)
       }
       w<-which(nchar(pstring)==0)        # all blank - set to missing
@@ -668,21 +677,22 @@ IMMA.unpack <- function(ob.strings) {
    # split the strings into a separate vector for each attachment
    atsplit<-list()
    # Core is always present and first
-   atsplit[[100]]<-substr(ob.strings,1,108)
+   atsplit[['C0']]<-substr(ob.strings,1,108)
    ob.strings<-substring(ob.strings,109)
    w<-which(nchar(ob.strings)>4)
    while(length(w)>0) {
      att.no<-as.integer(substr(ob.strings[w],1,2))
      att.len<-as.integer(substr(ob.strings[w],3,4))
-     for(attachment in c(1,2,3,4,5)) {
-        w2<-which(att.no==attachment)
+     for(attachment in c('C0','C1','C2','C3','C4','C5','C6','C7','C8','C9',
+                         'C95','C96','C97','C98')) {
+        w2<-which(IMMA.attachments[att.no]==attachment)
         if(length(w2)>0) {
           atsplit[[attachment]][w][w2]<-substr(ob.strings[w][w2],5,att.len)
           ob.strings[w][w2]<-substring(ob.strings[w][w2],att.len+1)
         }
       }
-     attachment<-99 # No set length - use the rest of the string
-     w2<-which(att.no==attachment)
+     attachment<-'C99' # No set length - use the rest of the string
+     w2<-which(IMMA.attachments[att.no]==attachment)
      if(length(w2)>0) {
        atsplit[[attachment]][w][w2]<-substring(ob.strings[w][w2],5)
        ob.strings[w][w2]<-''
@@ -691,9 +701,10 @@ IMMA.unpack <- function(ob.strings) {
    }
 
    # Now create the data frame
-   Result<-IMMA.decodeAttachment(atsplit[[100]],100)
-   for(attachment in  c(1,2,3,4,5,99)) {
-     flagName<-sprintf("has.%s",IMMA.attachments[[attachment]])
+   Result<-IMMA.decodeAttachment(atsplit[['C0']],'C0')
+   for(attachment in  c('C1','C2','C3','C4','C5','C6','C7','C8','C9',
+                         'C95','C96','C97','C98','C99')) {
+     flagName<-sprintf("has.%s",attachment)
      Result[[flagName]]<-FALSE
      if(length(atsplit[[attachment]])>0) {
        w<-which(nchar(atsplit[[attachment]])>0)
