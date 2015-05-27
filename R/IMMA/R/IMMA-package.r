@@ -712,6 +712,7 @@ IMMA.unpack <- function(ob.strings) {
        if(length(w)<length(atsplit[[attachment]])) {
          atsplit[[attachment]][!w]<-''
        }
+       length(atsplit[[attachment]])=length(Result$YR)
        Result<-cbind(Result,IMMA.decodeAttachment(atsplit[[attachment]],attachment))
      }
    }
