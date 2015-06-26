@@ -1,0 +1,20 @@
+#' IMMA - International Maritime Meteorological Archive records
+#'
+#' IMMA is the data format used by the International Comprehensive
+#'  Ocean-Atmosphere DataSet (ICOADS - http://icoads.noaa.gov).
+#'  This packace supports IMMA v1 rev. 17
+#'  (http://icoads.noaa.gov/ivad/docs/IMMA-Rev-v17-TRK.pdf).
+#'  It will work with v0 files too (v0 is a subset of v1).
+#' 
+#' @section functions:
+#'  There is only 1 user function: IMMA.read():
+#'   Reads in IMMA records from a file or connection.
+#'
+#' @section data structure:
+#'  Records read in are put in a data frame, rows are records,
+#'   columns are variables (YR, MO, SST, etc.) 
+#'
+#' @docType package
+#' @name IMMA
+NULL
+#> NULL

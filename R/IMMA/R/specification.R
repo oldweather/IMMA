@@ -1,16 +1,12 @@
-#' IMMA.
-#'
-#' @name IMMA
-#' @docType package
+# Specification of the file format
 
-# Definitions of the attachments
-IMMA.attachments <- character(0)  # Name of each attachment, from its numerical code
-IMMA.definitions <- list()
+# Name of each attachment, from its numerical code
+#  except for core 0->'C0' as array element 0 not allowed in R
+attachments <- character(0)
 
-# Core section
-#IMMA.attachments[0] <- 'C0' # Core section - 
-
-# For each parameter, provide an array specifying:
+# Parameter definitions
+# For each attachment, a list of all parameters in that attachment
+#  For each parameter, a list specifying
 #    Its length in characters, on disc,
 #    Its minimum value
 #    Its maximum value
@@ -18,7 +14,11 @@ IMMA.definitions <- list()
 #    Its maximum value (alternative representation)
 #    Its units scale
 #    Its encoding (1 = integer, 3= character, 2= base36)
-IMMA.definitions[['C0']] <- list(
+definitions <- list()
+
+# Core section
+#attachments[0] <- 'C0' # Core section - 
+definitions[['C0']] <- list(
     'YR'   = list( 4,  1600.,   2024.,    NULL,    NULL,    1.,    1 ),
     'MO'   = list( 2,     1.,     12.,    NULL,    NULL,    1.,    1 ),
     'DY'   = list( 2,     1.,     31.,    NULL,    NULL,    1.,    1 ),
@@ -69,8 +69,8 @@ IMMA.definitions[['C0']] <- list(
     'SH'   = list( 2,     0.,     99.,    NULL,    NULL,    1.,    1 )
 )
 #ICOADS attachment
-IMMA.attachments[1] = 'C1'  # 'ICOADS'
-IMMA.definitions[['C1']] = list(
+attachments[1] = 'C1'  # 'ICOADS'
+definitions[['C1']] = list(
     'BSI'  = list( 1, NULL,  NULL,  NULL, NULL, NULL, 3 ),
     'B10'  = list( 3,   1.,  648.,  NULL, NULL,   1., 1 ),
     'B1'   = list( 2,   0.,   99.,  NULL, NULL,   1., 1 ),
@@ -125,8 +125,8 @@ IMMA.definitions[['C1']] = list(
 # Attachments 2, 3 & 4 are deprecated - still here, but in a seperate section below.
 
 # IMMT5 attachment
-IMMA.attachments[5] = 'C5' # 'IMMT-5/FM 13'
-IMMA.definitions[['C5']] = list(
+attachments[5] = 'C5' # 'IMMT-5/FM 13'
+definitions[['C5']] = list(
     'OS'    = list( 1,   0.,       6.,   NULL,  NULL,  1.,  1 ),
     'OP'    = list( 1,   0.,       9.,   NULL,  NULL,  1.,  1 ),
     'FM'    = list( 1,   0.,      36.,   NULL,  NULL,  1.,  2 ),
@@ -193,8 +193,8 @@ IMMA.definitions[['C5']] = list(
 )
 
 # Model quality control attachment
-IMMA.attachments[6] = 'C6' # 'Model quality control'
-IMMA.definitions[['C6']] = list(
+attachments[6] = 'C6' # 'Model quality control'
+definitions[['C6']] = list(
     'CCCC'  = list( 4,   65.,    90.,  NULL,  NULL,  NULL,  3 ),
     'BUID'  = list( 6,   48.,    57.,   65.,   90.,  NULL,  3 ),
     'FBSRC' = list( 1,    0.,     0.,  NULL,  NULL,    1.,  1 ),
@@ -217,8 +217,8 @@ IMMA.definitions[['C6']] = list(
 )
 
 # Ship metadata attachment
-IMMA.attachments[7] = 'C7' # 'Ship metadata'
-IMMA.definitions[['C7']] = list(
+attachments[7] = 'C7' # 'Ship metadata'
+definitions[['C7']] = list(
     'MDS' = list( 1,    0.,      1.,  NULL,  NULL,    1.,  1 ),
     'C1M' = list( 2,  NULL,    NULL,  NULL,  NULL,  NULL,  3 ),
     'OPM' = list( 2,    0.,     99.,  NULL,  NULL,    1.,  1 ),
@@ -242,8 +242,8 @@ IMMA.definitions[['C7']] = list(
     'SMV' = list( 2,    0.,     99.,  NULL,  NULL,    1.,  1 )
 )
 # Near-surface oceanographic data attachment
-IMMA.attachments[8] = 'C8' # 'NOCN'
-IMMA.definitions[['C8']] = list(
+attachments[8] = 'C8' # 'NOCN'
+definitions[['C8']] = list(
     'OTV'  = list(  5,  -3.,  38.999,  NULL,  NULL,  0.001,  1 ),
     'OTZ'  = list(  4,   0.,   99.99,  NULL,  NULL,   0.01,  1 ),
     'OSV'  = list(  5,   0.,  40.999,  NULL,  NULL,   0.01,  1 ),
@@ -269,8 +269,8 @@ IMMA.definitions[['C8']] = list(
     'PUID' = list( 10, NULL,    NULL,  NULL,  NULL,   NULL,  3 )
 )
 # Edited cloud report attachment
-IMMA.attachments[9] = 'C9' # 'Ecr'
-IMMA.definitions[['C9']] = list(
+attachments[9] = 'C9' # 'Ecr'
+definitions[['C9']] = list(
     'CCe' = list( 1,   0.,  13.,  NULL,  NULL,    1.,  2 ),
     'WWe' = list( 2,   0.,  99.,  NULL,  NULL,    1.,  1 ),
     'Ne'  = list( 1,   0.,   8.,  NULL,  NULL,    1.,  1 ),
@@ -288,8 +288,8 @@ IMMA.definitions[['C9']] = list(
     'RI'  = list( 4, -1.1, 1.17,  NULL,  NULL,  0.01,  1 )
 )
 # Reanalysis QC/Feedback attachment
-IMMA.attachments[95] = 'C95' # 'Rean-qc'
-IMMA.definitions[['C95']] = list(
+attachments[95] = 'C95' # 'Rean-qc'
+definitions[['C95']] = list(
     'ICNR'  = list( 2,       0.,      99.,  NULL,  NULL,     1,  1 ),
     'FNR'   = list( 2,       1.,      99.,  NULL,  NULL,     1,  1 ),
     'DPRO'  = list( 2,       1.,      99.,  NULL,  NULL,     1,  1 ),
@@ -305,8 +305,8 @@ IMMA.definitions[['C95']] = list(
     'ASIR'  = list( 1,        0,        1,  NULL,  NULL,     1,  1 )
 )                  
 # ICOADS Value-Added Database attachment
-IMMA.attachments[96] = 'C95' # 'IVAD'
-IMMA.definitions[['C96']] = list(
+attachments[96] = 'C95' # 'IVAD'
+definitions[['C96']] = list(
     'ICNI'  = list( 2,        0.,       99.,  NULL,  NULL,    1.,  1 ),
     'FNI'   = list( 2,        1.,       99.,  NULL,  NULL,    1.,  1 ),
     'JVAD'  = list( 1,        0.,       36.,  NULL,  NULL,    1.,  2 ),
@@ -326,8 +326,8 @@ IMMA.definitions[['C96']] = list(
     'ASII'  = list( 1,        0.,        1.,  NULL,  NULL,    1.,  1 )
 )                  
 # Error attachment
-IMMA.attachments[97] = 'C97' # 'Error'
-IMMA.definitions[['C97']] = list(
+attachments[97] = 'C97' # 'Error'
+definitions[['C97']] = list(
      'ICNE' = list(    2,        0.,       99.,  NULL,  NULL,    1.,  1 ),
      'FNE'  = list(    2,        1.,       99.,  NULL,  NULL,    1.,  1 ),
      'CEF'  = list(    1,        0.,        1.,  NULL,  NULL,    1.,  1 ),
@@ -337,8 +337,8 @@ IMMA.definitions[['C97']] = list(
      'ASIE' = list(    1,        0.,        1.,  NULL,  NULL,    1.,  1 )
 )   
 # Unique report attachment
-IMMA.attachments[98] = 'C98' # 'Uida'
-IMMA.definitions[['C98']] = list(
+attachments[98] = 'C98' # 'Uida'
+definitions[['C98']] = list(
      'UID' = list( 6,  NULL,  NULL,  NULL,  NULL,  NULL,  3 ),
      'RN1' = list( 1,     0,    36,  NULL,  NULL,    1.,  2 ),
      'RN2' = list( 1,     0,    36,  NULL,  NULL,    1.,  2 ),
@@ -347,16 +347,16 @@ IMMA.definitions[['C98']] = list(
      'IRF' = list( 1,     0,     1,  NULL,  NULL,    1.,  1 )
 )                 
 # Supplemental attachment
-IMMA.attachments[99] = 'C99'  # 'supplemental'
-IMMA.definitions[['C99']] = list(
+attachments[99] = 'C99'  # 'supplemental'
+definitions[['C99']] = list(
     'SUPD' = list( NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  3 )
 )
 
 # Deprecated attachments
 
 # IMMT2 attachment - deprecated
-IMMA.attachments[2] = 'C2' # 'IMMT-2/FM 13 (deprecated)'
-IMMA.definitions[['C2']] = list(
+attachments[2] = 'C2' # 'IMMT-2/FM 13 (deprecated)'
+definitions[['C2']] = list(
     'OS'   = list( 1, 0.,   6.,   NULL,  NULL,  1.,  1 ),
     'OP'   = list( 1, 0.,   9.,   NULL,  NULL,  1.,  1 ),
     'FM'   = list( 2, 0.,   8.,   NULL,  NULL,  1.,  1 ),
@@ -411,8 +411,8 @@ IMMA.definitions[['C2']] = list(
     'RWS'  = list( 3, 0.0,  99.9, NULL,  NULL,  0.1, 1 )
 )
 # Model quality control attachment - deprecated
-IMMA.attachments[3] = 'C3' # 'Model quality control (deprecated)';
-IMMA.definitions[['C3']] = list(
+attachments[3] = 'C3' # 'Model quality control (deprecated)';
+definitions[['C3']] = list(
     'CCCC' = list( 4, 65.,   90.,    NULL,  NULL,  NULL,  3 ),
     'BUID' = list( 6, 48.,   57.,    65.,   90.,   NULL,  3 ),
     'BMP'  = list( 5, 870.0, 1074.6, NULL,  NULL,  0.1,   1 ),
@@ -434,8 +434,8 @@ IMMA.definitions[['C3']] = list(
     'BFL'  = list( 2, 0.,    99.,    NULL,  NULL,  1.,    1 )
 )
 # Ship Metadata attachment - deprecated
-IMMA.attachments[4] = 'C4' # 'Ship metadata (deprecated)'
-IMMA.definitions[['C4']] = list(
+attachments[4] = 'C4' # 'Ship metadata (deprecated)'
+definitions[['C4']] = list(
     'C1M' = list( 2, 65., 90.,    NULL,  NULL,  NULL,  3 ),
     'OPM' = list( 2, 0.,  99.,    NULL,  NULL,  1.,    1 ),
     'KOV' = list( 2, 32., 126.,   NULL,  NULL,  NULL,  3 ),
@@ -459,283 +459,3 @@ IMMA.definitions[['C4']] = list(
 )
 
 
-#' Find out which attachment a parameter is in
-#'
-#' IMMA data are divided into core parameters and optional attachments
-#' this function gives the attachment number of a parameter name.
-#'
-#' Attachment 100 is core. 
-#'
-#' @export
-#' @param parameter - Name of parameter to be found
-#' @return the number of the attachment containing that parameter.
-IMMA.whichAttachment <- function(parameter) {
-    for(i in c('C0','C1','C5','C6','C7','C8','C9',
-               'C95','C96','C97','C98','C99',
-               'C2','C3','C4')) {
-        if(!is.null(IMMA.definitions[[i]][[parameter]])) { return(i) }
-    }
-    stop(sprintf("No parameter %s in IMMA-1",parameter))
-}
-
-# Get the definitions for a named parameter
-IMMA.definitionsFor <- function(parameter,current=NULL) {
-    if(parameter=='ERRD') {
-       if(current[[ICNE]]==0) inherits.attachment<-'C0'
-       else inherits.attachment<-IMMA.attachments[current[[ICNE]]]
-       inherits.parameter<-names(IMMA.definitions[[inherits.attachment]])[current[[FNE]]]# FNE-2?
-       inherits.definitions<-IMMA.definitionsFor(inherits.parameter)
-       return(inherits.definitions)
-    }
-    return(IMMA.definitions[[IMMA.whichAttachment(parameter)]][[parameter]])
-}
-
-# Convert between numeric and base 36
-IMMA.decode_base36 <- function(s) { return(strtoi(s,36)) }
-# p specifies a minimum number of characters
-IMMA.encode_base36 <- function(n,p=0) {
-    n<-as.integer(n)
-    s<-rep("",length(n))
-    w<-which(n==0)
-    if(length(w)>0) s[w]<-'0'
-    w<-which(n>0)
-    while (length(w)>0) {
-       s[w] <- paste(substr(rep("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",length(n[w])),
-                          n[w]%%36+1,n[w]%%36+1),
-                   s[w],sep='')
-       n <-as.integer(n/36)
-       w<-which(n>0)
-    }
-    w<-which(nchar(s)<p)
-    # Pad strings of less than minimum length with zeros
-    while(length(w)>0) {
-      s[w]<-paste('0',s[w],sep='')
-      w<-which(nchar(s)<p)
-    }
-    return(s)
-}
-
-#' Check the value for a parameter is inside its acceptable range(s)
-#'
-#' Flags data which is physically impossible and can't be written in IMMA.
-#'
-#' The IMMA format constrains the possible ranges of numeric parameters
-#'  data outside those ranges can't be written in the format.This function
-#'  tests all the data for a selected paramete is inside the acceptable range.
-#'
-#' @export
-#' @param ob Observations data frame.
-#' @param parameter - Name of parameter to be tested
-#' @return for each observbation, TRUE if within range (or no range defined), FALSE if
-#'  outside range.
-IMMA.checkParameter <- function(ob,parameter) {
-
-  if(is.null(parameter)) stop ("Missing parameter")
-  definitions=IMMA.definitionsFor(parameter)
-  if ( is.null(definitions) ) {
-     stop("No parameter %s in IMMA.",parameter);
-  }
-
-  result<-rep(TRUE,length(ob[[parameter]]))
-              
-   # Character data can be anything
-    if ( definitions[7] == 3 ) {
-        return(result); 
-    }
-  
-    w<-which(!is.null(ob[[parameter]]) & !is.na(ob[[parameter]]) &
-             ((is.null(definitions[1]) | definitions[1] <= ob[[parameter]])
-        &     (is.null(definitions[2]) | definitions[2] >= ob[[parameter]] ))
-        |    ((is.null(definitions[3]) | definitions[3] <= ob[[parameter]])
-        &     (is.null(definitions[4]) | definitions[4] >= ob[[parameter]] )))
-    if(length(w)<length(ob[[parameter]])) result[!w]<-FALSE
-  return(result)
-}
-
-# Make a string representation of an attachment
-IMMA.encodeAttachment <- function(ob,attachment){
-
-    Result = rep('',length(ob$YR))
-    for ( parameter in names(IMMA.definitions[[attachment]])) {
-        definitions<-IMMA.definitionsFor(parameter)
-
-        # Treat differently according to type
-        if(definitions[7]==3) { # Character, just print
-          w<-which(!is.null(ob[[parameter]]))
-          if(length(w)>0) {
-              if(!is.null(definitions[1])) {
-                 Result[w]<-sprintf(sprintf("%%s%%.%ds",definitions[1]),Result[w],ob[[parameter]][w])
-              } else {  # Unspecified length, supplementary only - use length of data
-                 Result[w]<-sprintf("%s%s",Result[w],ob[[parameter]][w])
-              }
-          }
-          if(length(w)<length(Result)) { # Missing and bad values are encoded as blanks
-              if(!is.null(definitions[1])) {
-                 Result[!w]<-sprintf(sprintf("%%s%%.%ss",definitions[1]),Result[!w],' ')
-              } else {  # Unspecified length, supplementary only - use length of data
-                 Result<-sprintf("%s%s",Result[!w],' ')
-              }
-          }
-        }
-        if(definitions[7]==1) { # Integer - check, scale, round and print
-          w<-which(!is.na(ob[[parameter]]) & IMMA.checkParameter(ob,parameter))
-          if(length(w)>0) {
-             scaled<-ob[[parameter]][w]/definitions[6]
-             round<-as.integer(scaled+0.5) # nearest integer
-             Result[w]<-sprintf(sprintf("%%s%%.%dd",definitions[1]),Result[w],round)
-         }
-          if(length(w)<length(Result)) { # Missing and bad values are encoded as blanks
-             Result[!w]<-sprintf(sprintf("%%s%%.%ds",definitions[1]),Result[!w],' ')
-          }
-         }
-        if(definitions[7]==2) { # Base36 - check, scale, convert and print
-          w<-which(!is.na(ob[[parameter]]) & IMMA.checkParameter(ob,parameter))
-          if(length(w)>0) {
-             scaled<-ob[[parameter]][w]/definitions[6]
-             round<-as.integer(scaled+0.5) # nearest integer
-             enc<-IMMA.encode_base36(round)
-             Result[w]<-sprintf(sprintf("%%s%%.%ds",definitions[1]),Result[w],round)
-         }
-          if(length(w)<length(Result)) { # Missing and bad values are encoded as blanks
-             Result[!w]<-sprintf(sprintf("%%s%%.%ds",definitions[1]),Result[!w],' ')
-          }
-         }
-      }
-    # Done all the parameters, add the ID and length to the start
-    # (except for core)
-    if ( attachment != 'C0' ) {
-        if ( attachment == 'C99' ) {
-            Result = sprintf(" 0%s",Result)
-        } else {
-            Result = sprintf("%2d%s",nchar(Result)+4,Result)
-        }
-        Result = sprintf("%2d%s",attachment,Result)
-    }
-
-    return(Result)
-  }
-
-# Make a string version of the whole record
-IMMA.packString <- function(ob) {
-    Result = rep('',length(ob$YR))
-    for(attachment in c('C0','C1','C2','C3','C4','C5','C6','C7','C8','C9',
-                       'C95','C96','C97','C98','C99')) {
-      w<-IMMA.hasAttachment(ob,attachment)
-      if(length(w)>0) {
-        Result[w]<-sprintf("%s%s",Result,IMMA.encodeAttachment(ob[w,],attachment))
-      }
-    }
-    return(Result)
-}
-
-# Unpack the string version of an attachment into a data frame
-IMMA.decodeAttachment <- function(ob.strings,attachment){
-   Result<-list()
-   pstart<-1
-   for (parameter in names(IMMA.definitions[[attachment]])) {
-      definitions<-IMMA.definitionsFor(parameter,current=Results)
-      if(!is.null(definitions[[1]])) {
-         pstring<-substr(ob.strings,pstart,pstart+definitions[[1]]-1)
-         pstart<-pstart+definitions[[1]]
-         pstring<-sub("^\\s+", "", pstring) # strip leading blanks
-      } else { # Variable length - tricky
-         # Only get here for SUPD - take the rest of the string
-         pstring<-substring(ob.strings,pstart)
-      }
-      w<-which(nchar(pstring)==0)        # all blank - set to missing
-      
-      if(definitions[7]==3) { # Character,add directly
-        if(length(w)>0) {
-           is.na(pstring[w])<-TRUE
-        }
-        Result[[parameter]]<-pstring
-      }
-      if(definitions[7]==2) { # Base36 - convert, scale and add
-        pint<-integer(length(pstring))
-        if(length(w)>0) {
-           is.na(pint[w])<-TRUE
-        }
-        if(length(w)<length(pint)) {
-          pint[-w]<-IMMA.decode_base36(pstring[-w])
-        }
-        Result[[parameter]]<-pint*definitions[[6]]
-      }
-      if(definitions[7]==1) { # numeric data - scale and add
-        pint<-as.integer(pstring)
-        if(length(w)>0) {
-           is.na(pint[w])<-TRUE
-        }
-        Result[[parameter]]<-pint*definitions[[6]]
-      }
-    }
-   return(as.data.frame(Result,stringsAsFactors=FALSE))
-}
-
-# Unpack from string format into a data frame
-IMMA.unpack <- function(ob.strings) {
-
-   # split the strings into a separate vector for each attachment
-   atsplit<-list()
-   # Core is always present and first
-   atsplit[['C0']]<-substr(ob.strings,1,108)
-   ob.strings<-substring(ob.strings,109)
-   w<-which(nchar(ob.strings)>4)
-   while(length(w)>0) {
-     att.no<-as.integer(substr(ob.strings[w],1,2))
-     att.len<-as.integer(substr(ob.strings[w],3,4))
-     for(attachment in c('C0','C1','C2','C3','C4','C5','C6','C7','C8','C9',
-                         'C95','C96','C97','C98')) {
-        w2<-which(IMMA.attachments[att.no]==attachment)
-        if(length(w2)>0) {
-          atsplit[[attachment]][w][w2]<-substr(ob.strings[w][w2],5,att.len)
-          ob.strings[w][w2]<-substring(ob.strings[w][w2],att.len+1)
-        }
-      }
-     attachment<-'C99' # No set length - use the rest of the string
-     w2<-which(IMMA.attachments[att.no]==attachment)
-     if(length(w2)>0) {
-       atsplit[[attachment]][w][w2]<-substring(ob.strings[w][w2],5)
-       ob.strings[w][w2]<-''
-     }
-     w<-which(nchar(ob.strings)>4)
-   }
-
-   # Now create the data frame
-   Result<-IMMA.decodeAttachment(atsplit[['C0']],'C0')
-   for(attachment in  c('C1','C2','C3','C4','C5','C6','C7','C8','C9',
-                         'C95','C96','C97','C98','C99')) {
-     flagName<-sprintf("has.%s",attachment)
-     Result[[flagName]]<-FALSE
-     if(length(atsplit[[attachment]])>0) {
-       w<-which(nchar(atsplit[[attachment]])>0)
-       Result[[flagName]][w]<-TRUE
-       if(length(w)<length(atsplit[[attachment]])) {
-         atsplit[[attachment]][!w]<-''
-       }
-       length(atsplit[[attachment]])=length(Result$YR)
-       Result<-cbind(Result,IMMA.decodeAttachment(atsplit[[attachment]],attachment))
-     }
-   }
-   return(Result)
-}
-
-
-#' Read in all the IMMA records from a connection
-#'
-#' Keeps the data internally in a data frame - size
-#'  depends on which attachments are present in the source.
-#'
-#' Currently only supports IMMA0 format.
-#'
-#' @export
-#' @param con Connection to read data from - or string, see readLines().
-#' @param n - maximum number of records to read (negative means read all)
-#'   repeatedly call with n=1 to get records 1 at a time, use n=-1
-#'   (default) to get them all in one go.
-#' @return data frame - 1 row per record, column names as in the IMMA
-#'  documentation.
-IMMA.read<-function(con,n=-1) {
-   l<-readLines(con=con,n=n)
-   return(IMMA.unpack(l))
-}
-  
