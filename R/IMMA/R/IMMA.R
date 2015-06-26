@@ -7,8 +7,11 @@
 #'  It will work with v0 files too (v0 is a subset of v1).
 #' 
 #' @section functions:
-#'  There is only 1 user function: IMMA.read():
-#'   Reads in IMMA records from a file or connection.
+#' \itemize{
+#'   \item \code{\link{ReadObs}} - read observations from a file or connection.
+#'   \item \code{\link{WhichAttachment}} - which attachment is a parameter in?
+#'   \item \code{\link{CheckParameter}} - is this value for a parameter valid?
+#' }
 #'
 #' @section data structure:
 #'  Records read in are put in a data frame, rows are records,

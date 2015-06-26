@@ -14,8 +14,11 @@ IMMA is the data format used by the International Comprehensive
 }
 \section{functions}{
 
- There is only 1 user function: IMMA.read():
-  Reads in IMMA records from a file or connection.
+\itemize{
+  \item \code{\link{ReadObs}} - read observations from a file or connection.
+  \item \code{\link{WhichAttachment}} - which attachment is a parameter in?
+  \item \code{\link{CheckParameter}} - is this value for a parameter valid?
+}
 }
 
 \section{data structure}{
