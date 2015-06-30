@@ -9,6 +9,7 @@
 #' @param parameter - Name of parameter to be found
 #' @return the number of the attachment containing that parameter.
 WhichAttachment <- function(parameter) {
+    if(missing(parameter)) stop ("Need parameter as function argument")
     for(i in c('C0','C1','C5','C6','C7','C8','C9',
                'C95','C96','C97','C98','C99',
                'C2','C3','C4')) {
@@ -63,31 +64,31 @@ EncodeBase36 <- function(n,p=0) {
 #'  tests all the data for a selected paramete is inside the acceptable range.
 #'
 #' @export
-#' @param ob Observations data frame.
-#' @param parameter - Name of parameter to be tested
-#' @return for each observbation, TRUE if within range (or no range defined), FALSE if
+#' @param value values to be checked.
+#' @param parameter - Name of parameter values correspond to
+#' @return for each observation, TRUE if within range (or no range defined), FALSE if
 #'  outside range.
-CheckParameter <- function(ob,parameter) {
+CheckParameter <- function(value,parameter) {
 
-  if(is.null(parameter)) stop ("Missing parameter")
+  if(missing(parameter)) stop ("Need parameter as function argument")
   definitions=DefinitionsFor(parameter)
   if ( is.null(definitions) ) {
      stop("No parameter %s in IMMA.",parameter);
   }
 
-  result<-rep(TRUE,length(ob[[parameter]]))
+  result<-rep(FALSE,length(value))
               
    # Character data can be anything
     if ( definitions[7] == 3 ) {
         return(result); 
     }
   
-    w<-which(!is.null(ob[[parameter]]) & !is.na(ob[[parameter]]) &
-             ((is.null(definitions[1]) | definitions[1] <= ob[[parameter]])
-        &     (is.null(definitions[2]) | definitions[2] >= ob[[parameter]] ))
-        |    ((is.null(definitions[3]) | definitions[3] <= ob[[parameter]])
-        &     (is.null(definitions[4]) | definitions[4] >= ob[[parameter]] )))
-    if(length(w)<length(ob[[parameter]])) result[!w]<-FALSE
+    w<-which(is.null(value) | is.na(value) |
+             ((definitions[[2]] <= value)
+        &     (definitions[[3]] >= value ))
+        |    ((definitions[[4]] <= value)
+        &     (definitions[[5]] >= value )))
+    if(length(w)>0) result[w]<-TRUE
   return(result)
 }
 

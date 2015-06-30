@@ -2,16 +2,17 @@ context("Base36")
 
 test_that("Base36 numbers decoded correctly", {
 
+   expect_identical(32L,DecodeBase36('w'))
+   expect_identical(32L,DecodeBase36('W'))
+   expect_identical(7L,DecodeBase36(7))
+   expect_identical(1161L,DecodeBase36('w9'))
   
+})
 
-  set_colours("red")
-  expect_error(set_colours(rep("red", 2)), "Incompatible lengths")
-  dev.off()  # Need to manually close device because of error
-  expect_error(set_colours(rep("red", 3)), "Incompatible lengths")
-  dev.off()
-  expect_error(set_colours(rep("red", 4)), "Incompatible lengths")
-  dev.off()
-  set_colours(rep("red", 5))
+test_that("Base36 numbers encoded correctly", {
 
+   expect_identical(EncodeBase36(32),'W')
+   expect_identical(EncodeBase36(1161),'W9')
+   expect_identical(EncodeBase36(32,p=2),'0W')
 
 })

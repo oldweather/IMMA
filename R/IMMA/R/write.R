@@ -24,7 +24,7 @@ EncodeAttachment <- function(ob,attachment){
           }
         }
         if(definitions[7]==1) { # Integer - check, scale, round and print
-          w<-which(!is.na(ob[[parameter]]) & CheckParameter(ob,parameter))
+          w<-which(!is.na(ob[[parameter]]) & CheckParameter(ob[[parameter]],parameter))
           if(length(w)>0) {
              scaled<-ob[[parameter]][w]/definitions[6]
              round<-as.integer(scaled+0.5) # nearest integer
@@ -35,7 +35,7 @@ EncodeAttachment <- function(ob,attachment){
           }
          }
         if(definitions[7]==2) { # Base36 - check, scale, convert and print
-          w<-which(!is.na(ob[[parameter]]) & CheckParameter(ob,parameter))
+          w<-which(!is.na(ob[[parameter]]) & CheckParameter(ob[[parameter]],parameter))
           if(length(w)>0) {
              scaled<-ob[[parameter]][w]/definitions[6]
              round<-as.integer(scaled+0.5) # nearest integer

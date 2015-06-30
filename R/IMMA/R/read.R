@@ -4,7 +4,7 @@ DecodeAttachment <- function(ob.strings,attachment){
    pstart<-1
    for (parameter in names(definitions[[attachment]])) {
       definitions<-DefinitionsFor(parameter,current=Results)
-      if(!is.null(definitions[[1]])) {
+      if(!is.na(definitions[[1]])) {
          pstring<-substr(ob.strings,pstart,pstart+definitions[[1]]-1)
          pstart<-pstart+definitions[[1]]
          pstring<-sub("^\\s+", "", pstring) # strip leading blanks
@@ -18,15 +18,12 @@ DecodeAttachment <- function(ob.strings,attachment){
         if(length(w)>0) {
            is.na(pstring[w])<-TRUE
         }
-        Result[[parameter]]<-pstring
+        Result[[parameter]]<-as.character(pstring)
       }
       if(definitions[7]==2) { # Base36 - convert, scale and add
-        pint<-integer(length(pstring))
+        pint<-DecodeBase36(pstring)
         if(length(w)>0) {
            is.na(pint[w])<-TRUE
-        }
-        if(length(w)<length(pint)) {
-          pint[-w]<-DecodeBase36(pstring[-w])
         }
         Result[[parameter]]<-pint*definitions[[6]]
       }
@@ -57,8 +54,11 @@ ObsUnpack <- function(ob.strings) {
                          'C95','C96','C97','C98')) {
         w2<-which(attachments[att.no]==attachment)
         if(length(w2)>0) {
-          atsplit[[attachment]][w][w2]<-substr(ob.strings[w][w2],5,att.len)
-          ob.strings[w][w2]<-substring(ob.strings[w][w2],att.len+1)
+          if(is.null(atsplit[[attachment]])) {
+            atsplit[[attachment]]<-rep(NA,length(ob.strings))
+          }
+          atsplit[[attachment]][w][w2]<-substr(ob.strings[w][w2],5,att.len[w2])
+          ob.strings[w][w2]<-substring(ob.strings[w][w2],att.len[w2]+1)
         }
       }
      attachment<-'C99' # No set length - use the rest of the string
@@ -76,8 +76,8 @@ ObsUnpack <- function(ob.strings) {
                          'C95','C96','C97','C98','C99')) {
      flagName<-sprintf("has.%s",attachment)
      Result[[flagName]]<-FALSE
-     if(length(atsplit[[attachment]])>0) {
-       w<-which(nchar(atsplit[[attachment]])>0)
+     if(!is.null(atsplit[[attachment]])) {
+       w<-which(!is.na(atsplit[[attachment]]))
        Result[[flagName]][w]<-TRUE
        if(length(w)<length(atsplit[[attachment]])) {
          atsplit[[attachment]][!w]<-''
