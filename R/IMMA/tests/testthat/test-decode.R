@@ -5,7 +5,7 @@ test_that("String versions of Attachments correctly converted to data frames", {
 # core
   
    a.string<-"1919 2142099 5040  -420 0103   310Nw_Zealnd   1355 26      10004      100   89                              "
-   a.df<-data.frame(1919,2,14,20.99,50.4,-4.2,0,0,0,3,NA,NA,3,10,'Nw_Zealnd',NA,NA,135,
+   a.df<-data.frame(1919,2,14,20.99,50.4,-4.2,0,1,0,3,NA,NA,3,10,'Nw_Zealnd',NA,NA,135,
                    5,2.6,NA,NA,NA,NA,1000.4,NA,NA,NA,10,NA,8.9,NA,NA,NA,NA,NA,NA,NA,NA,
                    NA,NA,NA,NA,NA,NA,NA,NA,NA,
                    stringsAsFactors = FALSE)
@@ -22,7 +22,7 @@ test_that("String versions of Attachments correctly converted to data frames", {
    
    a.string<-" 138 9701 69 5 0 1                  FF11FF71AAAAAAAAAAAA     "
    a.df<-data.frame(NA,138,9,701,69,5,0,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
-                    NA,NA,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,NA,NA,NA,
+                    NA,NA,15,15,1,1,15,15,7,1,10,10,10,10,10,10,10,10,10,10,10,10,NA,NA,NA,
                    stringsAsFactors = FALSE)
    w<-which(is.na(a.df[1,]))
    a.df[w]<-as.numeric(a.df[w])
@@ -48,7 +48,7 @@ context("UnpackRecord")
 test_that("String versions of Records correctly split into attachments and converted to data frames", {
 
    a.string<-"1919 2141700 5040  -420 0103   310Nw_Zealnd    905 26      10021      100   94                              99 0 1919/02/14:20       50       49                 m    29.67                 2        E 4caf88f0cadfd34197023864"
-   a.df<-data.frame(1919,2,14,17,50.4,-4.2,0,0,0,3,NA,NA,3,10,'Nw_Zealnd',NA,NA,90,
+   a.df<-data.frame(1919,2,14,17,50.4,-4.2,0,1,0,3,NA,NA,3,10,'Nw_Zealnd',NA,NA,90,
                    5,2.6,NA,NA,NA,NA,1002.1,NA,NA,NA,10,NA,9.4,NA,NA,NA,NA,NA,NA,NA,NA,
                    NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,
                    FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE," 1919/02/14:20       50       49                 m    29.67                 2        E 4caf88f0cadfd34197023864",

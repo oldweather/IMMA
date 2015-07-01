@@ -49,7 +49,16 @@ ObsUnpack <- function(ob.strings) {
    w<-which(nchar(ob.strings)>4)
    while(length(w)>0) {
      att.no<-as.integer(substr(ob.strings[w],1,2))
-     att.len<-as.integer(substr(ob.strings[w],3,4))
+     att.len<-rep(0,length(att.no))
+     w8<-which(att.no==8)
+     if(length(w8)>0) {
+       att.len[w8]<-102 # Ugly!
+       if(length(att.len)>length(w8)) {
+         att.len[-w8]<-as.integer(substr(ob.strings[w][-w8],3,4))
+       }
+     } else {
+       att.len<-as.integer(substr(ob.strings[w],3,4))
+     }
      for(attachment in c('C0','C1','C2','C3','C4','C5','C6','C7','C8','C9',
                          'C95','C96','C97','C98')) {
         w2<-which(attachments[att.no]==attachment)
