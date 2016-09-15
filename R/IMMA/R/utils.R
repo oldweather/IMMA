@@ -3,7 +3,7 @@
 #' IMMA data are divided into core parameters and optional attachments
 #' this function gives the attachment number of a parameter name.
 #'
-#' Throws error if parameter on tin any attachment.
+#' Throws error if parameter isn't in any attachment.
 #'
 #' @export
 #' @param parameter - Name of parameter to be found
@@ -84,11 +84,31 @@ CheckParameter <- function(value,parameter) {
     }
   
     w<-which(is.null(value) | is.na(value) |
-             ((definitions[[2]] <= value)
-        &     (definitions[[3]] >= value ))
-        |    ((definitions[[4]] <= value)
-        &     (definitions[[5]] >= value )))
+             ((definitions[[2]]-definitions[[6]]/2 <= value)
+        &     (definitions[[3]]+definitions[[6]]/2 >= value ))
+        |    ((definitions[[4]]-definitions[[6]]/2 <= value)
+        &     (definitions[[5]]+definitions[[6]]/2 >= value )))
     if(length(w)>0) result[w]<-TRUE
   return(result)
 }
 
+#' Find the records which have a particular attachment.
+#'
+#' Assumes all records have a Core attachment
+#'
+#' Used in writing IMMA - basically just to save writing null attachments
+#'
+#' @export
+#' @param ob - Data frame of imma observations.
+#' @param attachment - Identifier of attachment to be checked ('C0', 'C1', ...'C99').
+#' @return for each observation, TRUE if attachment present, False otherwise
+HasAttachment<-function(ob,attachment) {
+  Result<-rep(FALSE,length(ob$YR))
+  if(attachment=='C0') {
+    Result<-rep(TRUE,length(Result))
+  } else {
+    w<-which(ob[[sprintf("has.%s",attachment)]])
+    if(length(w)>0) Result[w]<-TRUE
+  }
+  return(Result)
+}

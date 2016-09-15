@@ -17,6 +17,6 @@ IMMA data are divided into core parameters and optional attachments
 this function gives the attachment number of a parameter name.
 }
 \details{
-Throws error if parameter on tin any attachment.
+Throws error if parameter isn't in any attachment.
 }
 

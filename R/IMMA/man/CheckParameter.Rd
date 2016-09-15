@@ -4,15 +4,15 @@
 \alias{CheckParameter}
 \title{Check the value for a parameter is inside its acceptable range(s)}
 \usage{
-CheckParameter(ob, parameter)
+CheckParameter(value, parameter)
 }
 \arguments{
-\item{ob}{Observations data frame.}
+\item{value}{values to be checked.}
 
-\item{parameter}{- Name of parameter to be tested}
+\item{parameter}{- Name of parameter values correspond to}
 }
 \value{
-for each observbation, TRUE if within range (or no range defined), FALSE if
+for each observation, TRUE if within range (or no range defined), FALSE if
  outside range.
 }
 \description{
