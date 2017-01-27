@@ -7,7 +7,7 @@ DecodeAttachment <- function(ob.strings,attachment){
       if(!is.na(definitions[[1]])) {
          pstring<-substr(ob.strings,pstart,pstart+definitions[[1]]-1)
          pstart<-pstart+definitions[[1]]
-         pstring<-sub("^\\s+", "", pstring) # strip leading blanks
+         pstring<-trimws(pstring,'l')
       } else { # Variable length - tricky
          # Only get here for SUPD - take the rest of the string
          pstring<-substring(ob.strings,pstart)
@@ -66,13 +66,16 @@ ObsUnpack <- function(ob.strings) {
           if(is.null(atsplit[[attachment]])) {
             atsplit[[attachment]]<-rep(NA,length(ob.strings))
           }
-          atsplit[[attachment]][w][w2]<-substr(ob.strings[w][w2],5,att.len[w2])
+         atsplit[[attachment]][w][w2]<-substr(ob.strings[w][w2],5,att.len[w2])
           ob.strings[w][w2]<-substring(ob.strings[w][w2],att.len[w2]+1)
         }
       }
      attachment<-'C99' # No set length - use the rest of the string
      w2<-which(attachments[att.no]==attachment)
      if(length(w2)>0) {
+       if(is.null(atsplit[[attachment]])) {
+         atsplit[[attachment]]<-rep(NA,length(ob.strings))
+       }
        atsplit[[attachment]][w][w2]<-substring(ob.strings[w][w2],5)
        ob.strings[w][w2]<-''
      }
