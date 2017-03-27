@@ -18,6 +18,7 @@ use MarineOb::IMMA::mqc;
 use MarineOb::IMMA::metadata;
 use MarineOb::IMMA::historical;
 use MarineOb::IMMA::supplemental;
+use MarineOb::IMMA::uida;
 
 # Define a hash to hold data for a specific record
 my %imma = (
