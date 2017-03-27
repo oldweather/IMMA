@@ -19,6 +19,7 @@ use MarineOb::IMMA::metadata;
 use MarineOb::IMMA::historical;
 use MarineOb::IMMA::supplemental;
 use MarineOb::IMMA::uida;
+use MarineOb::IMMA::nocn;
 
 # Define a hash to hold data for a specific record
 my %imma = (
@@ -86,6 +87,7 @@ sub read {
             $Attachment = substr( $line, 0, 2 );
             $Length     = substr( $line, 2, 2 );
             unless ( $Length =~ /\S/ ) { $Length = undef; }
+            if($Length eq '2U') { $Length=decode_base36($Length); } # Special case for C8 - ugly
             if ( defined($Length) && $Length != 0 ) {
                 $Length -= 4;
             }
