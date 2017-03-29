@@ -254,8 +254,14 @@ sub encode {
     # (except for core)
     if ( $attachment != 0 ) {
         if ( $attachment != 99 ) {
-            $Result = sprintf "%2d%2d%s", $attachment, length($Result) + 4,
-              $Result;
+	    if(length($Result)>95) { # Won't fit in 2 char
+               $Result = sprintf "%2d%2s%s", $attachment, 
+                 encode_base36(length($Result) + 4),
+                 $Result;
+            } else {
+               $Result = sprintf "%2d%2d%s", $attachment, length($Result) + 4,
+                 $Result;
+            }
         }
         else {
             $Result = sprintf "%2d 0%s", $attachment, $Result;
