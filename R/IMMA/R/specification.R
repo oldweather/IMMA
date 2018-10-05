@@ -305,7 +305,7 @@ definitions[['C95']] = list(
     'ASIR'  = list( 1,        0,        1,    NA,    NA,     1,  1 )
 )                  
 # ICOADS Value-Added Database attachment
-attachments[96] = 'C95' # 'IVAD'
+attachments[96] = 'C96' # 'IVAD'
 definitions[['C96']] = list(
     'ICNI'  = list( 2,        0.,       99.,    NA,    NA,    1.,  1 ),
     'FNI'   = list( 2,        1.,       99.,    NA,    NA,    1.,  1 ),

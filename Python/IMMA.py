@@ -80,30 +80,31 @@ class IMMA:
             raise("Bad IMMA string","No data to decode")
 
         Position = 0;
-        for i in range(len(parameters)):
-            if ( definitions[parameters[i]][0] != None ):
-                self[parameters[i]] = as_string[Position:Position+definitions[parameters[i]][0]]
-                Position += definitions[parameters[i]][0]
+        for parameter in parameters:
+            if ( definitions[parameter][0] != None ):
+                value = as_string[Position:Position+definitions[parameter][0]]
+                Position += definitions[parameter][0]
             else:                  # Undefined length - so slurp all the data
-                self[parameters[i]] = as_string[Position:len(as_string)]
-                self[parameters[i]] = self[parameters[i]].rstrip("\n")
+                value = as_string[Position:len(as_string)]
+                value = value.rstrip("\n")
                 Position = len(as_string)
 
         # Blanks mean value is undefined
-            if( re.search("\S",self[parameters[i]]) == None ):
-                self[parameters[i]] = None
+            if( re.search("\S",value) == None ):
+                value = None
+                self[parameter]=value
                 continue    #  Next parameter
 
-            if ( definitions[parameters[i]][6] == 2 ):
-                self[parameters[i]] = decode_base36(self[parameters[i]])
+            if ( definitions[parameter][6] == 2 ):
+                value= decode_base36(value)
                 
-            if ( definitions[parameters[i]][6] == 1 ):
-                self[parameters[i]] = int(self[parameters[i]])
+            if ( definitions[parameter][6] == 1 ):
+                value = int(value)
                 
-            if ( definitions[parameters[i]][5] != None and
-                 definitions[parameters[i]][5] != 1.0 ):
-                self[parameters[i]] = int(self[parameters[i]])*definitions[parameters[i]][5];
-
+            if ( definitions[parameter][5] != None and
+                 definitions[parameter][5] != 1.0 ):
+                value = int(value)*definitions[parameter][5];
+            self[parameter]=value
 
 # Make a string representation of an attachment
     def encode (self,
